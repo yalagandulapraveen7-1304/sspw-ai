@@ -105,16 +105,36 @@
   .pill.selected { border-color:var(--red-bright); color:var(--red-bright); background:rgba(211,47,47,0.15); }
 
   /* Brand grid */
-  .brand-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:10px; }
+  .brand-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:12px; }
   .brand-pill {
-    padding:12px 8px; border-radius:6px; cursor:pointer; text-align:center;
-    background:rgba(168, 168, 168, 0.342); border: 2px solid rgba(255, 255, 255, 0.54);
-    font-family:'Rajdhani',sans-serif; font-weight:600; font-size:0.9rem;
-    color:var(--silver-dark); transition:all 0.2s; user-select:none;
+    padding:16px 12px; border-radius:8px; cursor:pointer; text-align:center;
+    background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+    font-family:'Rajdhani',sans-serif; font-weight:700; font-size:0.95rem;
+    color:var(--silver-dark); transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1); user-select:none;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
   }
-  .brand-pill .brand-icon { font-size:1.6rem; display:block; margin-bottom:4px; }
-  .brand-pill:hover { border-color:rgba(211,47,47,0.4); color:var(--silver-light); }
-  .brand-pill.selected { border-color:var(--red-bright); color:var(--red-bright); background:rgba(211,47,47,0.12); }
+  .brand-pill .brand-icon { 
+    display:flex; align-items:center; justify-content:center;
+    height: 48px; margin-bottom:8px; font-size:2rem;
+  }
+  .logos {
+    max-width: 60px;
+    max-height: 40px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    transition:transform 0.3s ease;
+  }
+  .brand-pill:hover { 
+    border-color:rgba(211,47,47,0.4); color:var(--silver-light); background:rgba(211,47,47,0.06); 
+    transform:translateY(-2px); box-shadow:0 6px 15px rgba(0,0,0,0.2); 
+  }
+  .brand-pill:hover .logos { transform:scale(1.05); }
+  .brand-pill.selected { 
+    border-color:var(--red-bright); color:var(--red-bright); background:rgba(211,47,47,0.12); 
+    transform:translateY(-2px); box-shadow:0 6px 15px rgba(211,47,47,0.2); 
+  }
 
   /* Services */
   .service-select-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:12px; }
@@ -264,11 +284,7 @@
     .step-card { padding:20px 18px; }
     .result-box { padding:28px 20px; }
   }
-.logos {
-    width: 40px;    
-    height: 40px;     
-    object-fit: contain; 
-}
+
 </style>
 </head>
 <body>
@@ -413,22 +429,22 @@
     </div>
     <div class="damage-grid" id="damageLevel">
       <div class="damage-card" data-val="minor" data-mult="1">
-        <div class="dmg-icon">😌</div>
+       
         <div class="dmg-name">Minor</div>
         <div class="dmg-desc">Small scratches, light scuffs, or single touch-up spots</div>
       </div>
       <div class="damage-card" data-val="moderate" data-mult="1.5">
-        <div class="dmg-icon">😟</div>
+     
         <div class="dmg-name">Moderate</div>
         <div class="dmg-desc">Visible dents, 1-2 panel damage, medium repair needed</div>
       </div>
       <div class="damage-card" data-val="heavy" data-mult="2">
-        <div class="dmg-icon">😰</div>
+       
         <div class="dmg-name">Heavy</div>
         <div class="dmg-desc">Multiple panels affected, accident damage, deep scratches</div>
       </div>
       <div class="damage-card" data-val="complete" data-mult="2.5">
-        <div class="dmg-icon">😱</div>
+       
         <div class="dmg-name">Full Vehicle</div>
         <div class="dmg-desc">Complete repaint or full restoration across the entire car</div>
       </div>

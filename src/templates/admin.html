@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSPW Admin Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+        .dashboard-container { max-width: 1000px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { color: #d32f2f; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #222; color: white; }
+        tr:hover { background-color: #f1f1f1; }
+        .empty-state { text-align: center; color: #666; padding: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <h1>SSPW Leads Dashboard</h1>
+    <p>All quote requests submitted through the website are listed below.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date Submitted</th>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Service</th>
+                <th>Vehicle</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in inquiries %}
+            <tr>
+                <td>#{{ row[0] }}</td>
+                <td>{{ row[6] }}</td>
+                <td><strong>{{ row[1] }}</strong></td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td>{{ row[5] }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="7" class="empty-state">No inquiries found in the database.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

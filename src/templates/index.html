@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSPW – Srinivas Spray Painting Works | Kothagudem, Telangana</title>
+<meta name="description" content="20+ Years of Professional Car Painting & Restoration Services in Kothagudem. Full body painting, scratch repair, dent removal, ceramic coating and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+<link rel="stylesheet" href="/src/output.css">
+
+<style>
+  :root {
+    --black: #0A0A0A;
+    --deep-red: #8B0000;
+    --red: #D32F2F;
+    --red-bright: #EF4444;
+    --silver: #C0C0C0;
+    --silver-light: #E8E8E8;
+    --silver-dark: #808080;
+    --white: #FFFFFF;
+    --card-bg: rgba(255,255,255,0.04);
+    --card-border: rgba(211,47,47,0.3);
+    --glass: rgba(10,10,10,0.85);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--silver-light);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+  /* NAVBAR */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:1000;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(211,47,47,0.2);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+    transition: all 0.3s;
+  }
+  nav.scrolled { background: rgba(10,10,10,0.98); box-shadow: 0 4px 30px rgba(211,47,47,0.15); }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem; letter-spacing: 3px;
+    background: linear-gradient(135deg, #D32F2F, #C0C0C0);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; align-items: center; gap: 1.8rem; list-style: none; }
+  .nav-links a {
+    color: var(--silver); font-size: 0.85rem; font-weight: 500;
+    letter-spacing: 1px; text-transform: uppercase; text-decoration: none;
+    transition: color 0.2s;
+    font-family: 'Rajdhani', sans-serif; font-size: 1rem;
+  }
+  .nav-links a:hover { color: var(--red-bright); }
+  .btn-quote {
+    background: linear-gradient(135deg, #D32F2F, #8B0000);
+    color: #fff; padding: 8px 20px; border-radius: 4px;
+    font-family: 'Rajdhani', sans-serif; font-weight: 700;
+    letter-spacing: 1px; font-size: 0.95rem;
+    text-decoration: none; border: none; cursor: pointer;
+    box-shadow: 0 0 15px rgba(211,47,47,0.4);
+    transition: all 0.3s;
+  }
+  .btn-quote:hover { box-shadow: 0 0 25px rgba(211,47,47,0.7); transform: translateY(-1px); }
+  .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:4px; }
+  .hamburger span { width:24px; height:2px; background:var(--silver); display:block; transition: all 0.3s; }
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0A0A0A 0%, #1a0505 40%, #2d0000 60%, #0A0A0A 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden; padding-top: 64px;
+  }
+  .hero-bg-lines {
+    position:absolute; inset:0; overflow:hidden; pointer-events:none;
+  }
+  .hero-bg-lines::before {
+    content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%;
+    background: repeating-linear-gradient(
+      45deg, transparent, transparent 60px,
+      rgba(211,47,47,0.03) 60px, rgba(211,47,47,0.03) 61px
+    );
+  }
+  .hero-glow {
+    position:absolute; width:600px; height:600px; border-radius:50%;
+    background: radial-gradient(circle, rgba(139,0,0,0.3) 0%, transparent 70%);
+    top:50%; left:50%; transform:translate(-50%,-50%);
+    pointer-events:none;
+  }
+  .hero-content {
+    position:relative; z-index:2; text-align:center;
+    padding: 60px 5% 40px;
+    max-width: 900px;
+  }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(211,47,47,0.15); border:1px solid rgba(211,47,47,0.4);
+    padding:6px 16px; border-radius:30px; margin-bottom:24px;
+    font-family:'Rajdhani',sans-serif; font-size:0.9rem; letter-spacing:2px;
+    color:var(--red-bright); text-transform:uppercase;
+  }
+  .hero-badge::before { content:''; width:8px; height:8px; background:var(--red-bright); border-radius:50%; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+  h1.hero-title {
+    font-family:'Bebas Neue',sans-serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height:0.95; letter-spacing:3px;
+    margin-bottom:16px;
+  }
+  h1.hero-title .line1 { color: var(--silver-light); display:block; }
+  h1.hero-title .line2 { 
+    background: linear-gradient(135deg, #D32F2F, #FF6B6B);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    display:block;
+  }
+  .hero-sub {
+    font-size:1.1rem; color:var(--silver-dark); max-width:600px;
+    margin:0 auto 36px; line-height:1.7;
+    font-weight:400;
+  }
+  .hero-sub strong { color:var(--silver); }
+  .hero-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:48px; }
+  .btn-primary {
+    background:linear-gradient(135deg,#D32F2F,#8B0000);
+    color:#fff; padding:14px 32px; border-radius:4px;
+    font-family:'Rajdhani',sans-serif; font-weight:700; font-size:1.1rem;
+    letter-spacing:1px; text-decoration:none; border:none; cursor:pointer;
+    box-shadow:0 0 20px rgba(211,47,47,0.4);
+    transition:all 0.3s; text-transform:uppercase;
+  }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 0 35px rgba(211,47,47,0.6); }
+  .btn-secondary {
+    background:transparent; border:1px solid rgba(192,192,192,0.4);
+    color:var(--silver-light); padding:14px 32px; border-radius:4px;
+    font-family:'Rajdhani',sans-serif; font-weight:600; font-size:1.1rem;
+    letter-spacing:1px; text-decoration:none; display:flex; align-items:center; gap:10px;
+    transition:all 0.3s; text-transform:uppercase;
+  }
+  .btn-secondary:hover { background:rgba(192,192,192,0.08); border-color:var(--silver); }
+  .hero-stats {
+    display:flex; justify-content:center; gap:48px; flex-wrap:wrap;
+    border-top:1px solid rgba(211,47,47,0.2); padding-top:40px;
+  }
+  .stat { text-align:center; }
+  .stat-num {
+    font-family:'Bebas Neue',sans-serif; font-size:2.8rem;
+    background:linear-gradient(135deg,#D32F2F,#C0C0C0);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    line-height:1;
+  }
+  .stat-label { font-size:0.8rem; color:var(--silver-dark); letter-spacing:2px; text-transform:uppercase; margin-top:4px; }
+
+  /* BEFORE/AFTER SLIDER */
+  .before-after-section {
+    padding: 80px 5%; background: linear-gradient(180deg, #0A0A0A 0%, #0d0202 100%);
+  }
+  .section-label {
+    text-align:center; font-family:'Rajdhani',sans-serif;
+    font-size:0.85rem; letter-spacing:4px; color:var(--red-bright);
+    text-transform:uppercase; margin-bottom:12px;
+  }
+  .section-title {
+    font-family:'Bebas Neue',sans-serif;
+    font-size: clamp(2.2rem,5vw,4rem);
+    text-align:center; letter-spacing:2px; color:var(--silver-light);
+    margin-bottom:12px;
+  }
+  .section-sub { text-align:center; color:var(--silver-dark); max-width:580px; margin:0 auto 52px; line-height:1.7; }
+
+  .slider-container {
+    max-width:800px; margin:0 auto;
+    position:relative; border-radius:8px; overflow:hidden;
+    border:1px solid rgba(211,47,47,0.3);
+    box-shadow:0 0 60px rgba(139,0,0,0.3);
+  }
+  .slider-wrapper { position:relative; height:420px; overflow:hidden; cursor:ew-resize; user-select:none; }
+  .slider-after {
+    position:absolute; inset:0;
+    background: linear-gradient(135deg,#1a1a2e,#16213e,#0f3460,#533483);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .slider-before {
+    position:absolute; inset:0; overflow:hidden;
+    clip-path: inset(0 50% 0 0);
+    transition: clip-path 0.05s;
+    background: linear-gradient(135deg,#2d1a00,#5c3300,#8b5e00,#c4952a);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .car-svg { width:360px; max-width:80%; }
+  .slider-label {
+    position:absolute; top:16px; padding:6px 14px;
+    background:rgba(0,0,0,0.7); border-radius:30px;
+    font-family:'Rajdhani',sans-serif; font-weight:700; font-size:0.9rem;
+    letter-spacing:2px; text-transform:uppercase;
+  }
+  .label-before { left:16px; color:#ffb347; border:1px solid #ffb347; }
+  .label-after { right:16px; color:var(--red-bright); border:1px solid var(--red-bright); }
+  .slider-divider {
+    position:absolute; top:0; bottom:0; width:3px; background:var(--white);
+    left:50%; transform:translateX(-50%); z-index:10;
+    box-shadow:0 0 10px rgba(255,255,255,0.5);
+  }
+  .slider-handle {
+    position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    width:44px; height:44px; background:var(--white); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 0 15px rgba(255,255,255,0.5); z-index:11;
+    font-size:1.1rem; color:#333;
+  }
+  .slider-hint {
+    text-align:center; margin-top:16px; color:var(--silver-dark);
+    font-size:0.85rem; letter-spacing:1px;
+  }
+
+  /* SERVICES */
+  #services { padding:80px 5%; background:var(--black); }
+  .services-grid {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:20px; max-width:1200px; margin:0 auto;
+  }
+  .service-card {
+    background:var(--card-bg); border:1px solid var(--card-border);
+    border-radius:8px; padding:28px 24px;
+    backdrop-filter:blur(10px);
+    transition:all 0.3s; position:relative; overflow:hidden;
+  }
+  .service-card::before {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(135deg,rgba(211,47,47,0.06),transparent);
+    opacity:0; transition:opacity 0.3s;
+  }
+  .service-card:hover { border-color:rgba(211,47,47,0.6); transform:translateY(-4px); box-shadow:0 12px 40px rgba(139,0,0,0.25); }
+  .service-card:hover::before { opacity:1; }
+  .service-icon {
+    width:52px; height:52px; background:linear-gradient(135deg,rgba(211,47,47,0.2),rgba(139,0,0,0.1));
+    border-radius:8px; display:flex; align-items:center; justify-content:center;
+    font-size:1.6rem; margin-bottom:16px; border:1px solid rgba(211,47,47,0.2);
+  }
+  .service-card h3 {
+    font-family:'Rajdhani',sans-serif; font-size:1.2rem; font-weight:700;
+    color:var(--silver-light); margin-bottom:8px; letter-spacing:0.5px;
+  }
+  .service-card p { font-size:0.88rem; color:var(--silver-dark); line-height:1.6; }
+  .service-card .price-tag {
+    margin-top:16px; font-family:'Rajdhani',sans-serif;
+    color:var(--red-bright); font-weight:700; font-size:0.95rem; letter-spacing:1px;
+  }
+
+  /* WHY CHOOSE US */
+  #why { padding:80px 5%; background:linear-gradient(180deg,#0A0A0A,#0d0202,#0A0A0A); }
+  .why-grid {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:24px; max-width:1100px; margin:0 auto;
+  }
+  .why-card {
+    text-align:center; padding:32px 20px;
+    background:rgba(255,255,255,0.03); border:1px solid rgba(192,192,192,0.1);
+    border-radius:8px; transition:all 0.3s;
+  }
+  .why-card:hover { border-color:rgba(211,47,47,0.4); transform:translateY(-3px); }
+  .why-icon { font-size:2.5rem; margin-bottom:14px; }
+  .why-card h3 { font-family:'Rajdhani',sans-serif; font-size:1.15rem; font-weight:700; color:var(--silver-light); margin-bottom:8px; }
+  .why-card p { font-size:0.84rem; color:var(--silver-dark); line-height:1.6; }
+
+  /* GALLERY */
+  #gallery { padding:80px 5%; background:var(--black); }
+  .gallery-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:16px; max-width:1200px; margin:0 auto;
+  }
+  .gallery-item {
+    position:relative; aspect-ratio:4/3; border-radius:8px; overflow:hidden;
+    border:1px solid rgba(211,47,47,0.2); cursor:pointer;
+    transition:all 0.3s;
+  }
+  .gallery-item:hover { transform:scale(1.02); border-color:rgba(211,47,47,0.5); box-shadow:0 8px 30px rgba(139,0,0,0.3); }
+  .gallery-thumb {
+    width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+    font-size:3rem;
+    transition: transform 0.4s;
+  }
+  .gallery-item:hover .gallery-thumb { transform:scale(1.08); }
+  .gallery-overlay {
+    position:absolute; inset:0;
+    background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.85));
+    opacity:0; transition:opacity 0.3s;
+    display:flex; flex-direction:column; justify-content:flex-end; padding:16px;
+  }
+  .gallery-item:hover .gallery-overlay { opacity:1; }
+  .gallery-overlay span { font-family:'Rajdhani',sans-serif; font-weight:600; color:var(--white); font-size:0.95rem; }
+  .gallery-overlay small { color:var(--red-bright); font-size:0.8rem; }
+
+  /* FEATURED WORK */
+  #featured { padding:80px 5%; background:linear-gradient(180deg,#0A0A0A,#0d0202,#0A0A0A); }
+  .featured-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:28px; max-width:1200px; margin:0 auto; }
+  .featured-card {
+    background:rgba(255,255,255,0.03); border:1px solid rgba(211,47,47,0.2);
+    border-radius:10px; overflow:hidden; transition:all 0.3s;
+  }
+  .featured-card:hover { border-color:rgba(211,47,47,0.5); box-shadow:0 12px 40px rgba(139,0,0,0.2); }
+  .featured-images { display:grid; grid-template-columns:1fr 1fr; height:200px; }
+  .featured-img {
+    display:flex; align-items:center; justify-content:center;
+    font-size:3rem; position:relative; overflow:hidden;
+  }
+  .featured-img.before { background:linear-gradient(135deg,#2d2d2d,#1a1a1a); }
+  .featured-img.after { background:linear-gradient(135deg,#2d0000,#0A0A0A); }
+  .featured-img-label {
+    position:absolute; bottom:8px; left:50%; transform:translateX(-50%);
+    background:rgba(0,0,0,0.7); padding:3px 10px; border-radius:20px;
+    font-size:0.7rem; letter-spacing:2px; text-transform:uppercase; font-family:'Rajdhani',sans-serif; font-weight:600;
+  }
+  .featured-info { padding:20px; }
+  .featured-info h3 { font-family:'Rajdhani',sans-serif; font-size:1.15rem; font-weight:700; color:var(--silver-light); margin-bottom:6px; }
+  .featured-info p { font-size:0.85rem; color:var(--silver-dark); line-height:1.6; margin-bottom:12px; }
+  .satisfaction-badge {
+    display:inline-flex; align-items:center; gap:6px;
+    background:rgba(211,47,47,0.15); border:1px solid rgba(211,47,47,0.3);
+    padding:4px 12px; border-radius:20px;
+    color:var(--red-bright); font-size:0.8rem; font-family:'Rajdhani',sans-serif; font-weight:700; letter-spacing:1px;
+  }
+
+  /* ESTIMATE CTA */
+  #estimate-cta {
+    padding:80px 5%; background:var(--black);
+    display:flex; justify-content:center;
+  }
+  .estimate-box {
+    max-width:700px; width:100%; text-align:center;
+    background:linear-gradient(135deg,rgba(139,0,0,0.2),rgba(211,47,47,0.08));
+    border:1px solid rgba(211,47,47,0.4); border-radius:12px;
+    padding:52px 40px;
+    box-shadow:0 0 60px rgba(139,0,0,0.15);
+  }
+  .estimate-box h2 { font-family:'Bebas Neue',sans-serif; font-size:3rem; letter-spacing:2px; color:var(--silver-light); margin-bottom:12px; }
+  .estimate-box p { color:var(--silver-dark); margin-bottom:32px; line-height:1.7; }
+  .estimate-features { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:32px; }
+  .est-feat {
+    background:rgba(255,255,255,0.05); border:1px solid rgba(192,192,192,0.15);
+    padding:6px 14px; border-radius:20px; font-size:0.82rem;
+    font-family:'Rajdhani',sans-serif; color:var(--silver); letter-spacing:0.5px;
+  }
+
+  /* TESTIMONIALS */
+  #testimonials { padding:80px 5%; background:linear-gradient(180deg,#0A0A0A,#0d0202,#0A0A0A); }
+  .testimonials-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; max-width:1200px; margin:0 auto; }
+  .testimonial-card {
+    background:rgba(255,255,255,0.04); border:1px solid rgba(211,47,47,0.2);
+    border-radius:8px; padding:28px 24px; transition:all 0.3s;
+  }
+  .testimonial-card:hover { border-color:rgba(211,47,47,0.4); transform:translateY(-3px); }
+  .stars { color:#FFD700; font-size:1rem; letter-spacing:2px; margin-bottom:12px; }
+  .testimonial-text { font-size:0.9rem; color:var(--silver-dark); line-height:1.7; font-style:italic; margin-bottom:18px; }
+  .testimonial-text::before { content:'"'; font-size:2rem; color:rgba(211,47,47,0.4); line-height:0.5; display:block; margin-bottom:8px; }
+  .reviewer { display:flex; align-items:center; gap:12px; }
+  .reviewer-avatar {
+    width:44px; height:44px; border-radius:50%;
+    background:linear-gradient(135deg,var(--deep-red),var(--black));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Bebas Neue',sans-serif; font-size:1.2rem; color:var(--silver-light);
+    border:2px solid rgba(211,47,47,0.4);
+    flex-shrink:0;
+  }
+  .reviewer-name { font-family:'Rajdhani',sans-serif; font-weight:700; color:var(--silver-light); font-size:1rem; }
+  .reviewer-loc { font-size:0.78rem; color:var(--silver-dark); }
+
+  /* CONTACT */
+  #contact { padding:80px 5%; background:var(--black); }
+  .contact-wrapper { display:grid; grid-template-columns:1fr 1fr; gap:48px; max-width:1100px; margin:0 auto; }
+  .contact-info h2 { font-family:'Bebas Neue',sans-serif; font-size:2.8rem; letter-spacing:2px; color:var(--silver-light); margin-bottom:24px; }
+  .contact-detail {
+    display:flex; align-items:flex-start; gap:16px;
+    padding:18px 0; border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  .contact-detail:last-child { border-bottom:none; }
+  .contact-icon {
+    width:44px; height:44px; background:rgba(211,47,47,0.15);
+    border:1px solid rgba(211,47,47,0.3); border-radius:8px;
+    display:flex; align-items:center; justify-content:center; font-size:1.2rem;
+    flex-shrink:0;
+  }
+  .contact-detail-text h4 { font-family:'Rajdhani',sans-serif; font-weight:700; color:var(--silver); margin-bottom:4px; font-size:0.85rem; letter-spacing:1px; text-transform:uppercase; }
+  .contact-detail-text p, .contact-detail-text a { color:var(--silver-light); font-size:1rem; text-decoration:none; transition:color 0.2s; }
+  .contact-detail-text a:hover { color:var(--red-bright); }
+
+  .map-container { margin-top:28px; border-radius:8px; overflow:hidden; border:1px solid rgba(211,47,47,0.2); height:200px; position:relative; }
+  .map-placeholder {
+    width:100%; height:100%;
+    background:linear-gradient(135deg,#1a1a1a,#2d0000);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:8px;
+  }
+  .map-placeholder span { font-size:2rem; }
+  .map-placeholder p { font-family:'Rajdhani',sans-serif; color:var(--silver-dark); font-size:0.9rem; letter-spacing:1px; }
+  .map-placeholder a { color:var(--red-bright); text-decoration:none; font-size:0.85rem; }
+
+  .contact-form { display:flex; flex-direction:column; gap:16px; }
+  .form-group { display:flex; flex-direction:column; gap:6px; }
+  .form-group label { font-family:'Rajdhani',sans-serif; font-weight:600; color:var(--silver); font-size:0.9rem; letter-spacing:0.5px; }
+  .form-group input, .form-group textarea, .form-group select {
+    background:rgba(255,255,255,0.05); border:1px solid rgba(211,47,47,0.2);
+    border-radius:6px; padding:12px 16px; color:var(--silver-light);
+    font-family:'Inter',sans-serif; font-size:0.95rem; outline:none;
+    transition:border-color 0.2s;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color:rgba(211,47,47,0.6);
+  }
+  .form-group textarea { resize:vertical; min-height:100px; }
+  .form-group select option { background:#1a1a1a; }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+  /* FOOTER */
+  footer {
+    background:linear-gradient(180deg,#0d0202,#0A0A0A);
+    border-top:1px solid rgba(211,47,47,0.2);
+    padding:60px 5% 24px;
+  }
+  .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1.5fr; gap:48px; max-width:1200px; margin:0 auto 48px; }
+  .footer-brand .footer-logo {
+    font-family:'Bebas Neue',sans-serif; font-size:2.4rem; letter-spacing:3px;
+    background:linear-gradient(135deg,#D32F2F,#C0C0C0);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    display:block; margin-bottom:12px;
+  }
+  .footer-brand p { font-size:0.88rem; color:var(--silver-dark); line-height:1.7; max-width:300px; }
+  .footer-social { display:flex; gap:12px; margin-top:20px; }
+  .social-btn {
+    width:38px; height:38px; background:rgba(255,255,255,0.05);
+    border:1px solid rgba(211,47,47,0.2); border-radius:6px;
+    display:flex; align-items:center; justify-content:center; font-size:1.1rem;
+    text-decoration:none; transition:all 0.3s;
+  }
+  .social-btn:hover { background:rgba(211,47,47,0.15); border-color:rgba(211,47,47,0.4); }
+  .footer-col h4 { font-family:'Rajdhani',sans-serif; font-size:1rem; font-weight:700; letter-spacing:2px; color:var(--silver); text-transform:uppercase; margin-bottom:20px; }
+  .footer-links { list-style:none; display:flex; flex-direction:column; gap:10px; }
+  .footer-links a { color:var(--silver-dark); text-decoration:none; font-size:0.88rem; transition:color 0.2s; }
+  .footer-links a:hover { color:var(--red-bright); }
+  .footer-contact-item { display:flex; gap:10px; margin-bottom:12px; }
+  .footer-contact-item .icon { font-size:1rem; flex-shrink:0; margin-top:2px; }
+  .footer-contact-item p { font-size:0.88rem; color:var(--silver-dark); line-height:1.6; }
+  .footer-bottom {
+    border-top:1px solid rgba(255,255,255,0.06); padding-top:24px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;
+    gap:12px; max-width:1200px; margin:0 auto;
+  }
+  .footer-bottom p { font-size:0.82rem; color:var(--silver-dark); }
+  .footer-bottom .footer-tagline { color:rgba(211,47,47,0.7); font-family:'Rajdhani',sans-serif; font-size:0.85rem; letter-spacing:1px; }
+
+  /* FLOATING BUTTONS */
+  .float-wa {
+    position:fixed; bottom:90px; right:20px; z-index:999;
+    width:56px; height:56px; border-radius:50%;
+    background:linear-gradient(135deg,#25D366,#128C7E);
+    display:flex; align-items:center; justify-content:center; font-size:1.6rem;
+    box-shadow:0 4px 20px rgba(37,211,102,0.4); text-decoration:none;
+    animation:floatBounce 3s ease-in-out infinite;
+  }
+  .float-call {
+    position:fixed; bottom:24px; right:20px; z-index:999;
+    width:56px; height:56px; border-radius:50%;
+    background:linear-gradient(135deg,#D32F2F,#8B0000);
+    display:flex; align-items:center; justify-content:center; font-size:1.4rem;
+    box-shadow:0 4px 20px rgba(211,47,47,0.5); text-decoration:none;
+  }
+  @keyframes floatBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+  /* SCROLL ANIMATIONS */
+  .reveal { opacity:0; transform:translateY(30px); transition:all 0.7s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  /* MOBILE */
+  @media (max-width:768px) {
+    .nav-links { display:none; flex-direction:column; position:fixed; top:64px; left:0; right:0; background:rgba(10,10,10,0.98); padding:20px 5%; gap:0; border-bottom:1px solid rgba(211,47,47,0.2); }
+    .nav-links.open { display:flex; }
+    .nav-links li { border-bottom:1px solid rgba(255,255,255,0.05); }
+    .nav-links a { display:block; padding:14px 0; font-size:1.1rem; }
+    .hamburger { display:flex; }
+    .contact-wrapper { grid-template-columns:1fr; }
+    .footer-grid { grid-template-columns:1fr 1fr; gap:32px; }
+    .estimate-box { padding:36px 24px; }
+    .form-row { grid-template-columns:1fr; }
+    .hero-stats { gap:28px; }
+    .stat-num { font-size:2.2rem; }
+  }
+  @media (max-width:480px) {
+    .footer-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+<a href="{{ url_for('home') }}" class="nav-logo">SSPW</a>
+<ul class="nav-links" id="navLinks">
+    <li><a href="{{ url_for('home') }}">Home</a></li>
+    <li><a href="{{ url_for('home') }}#services">Services</a></li>
+    <li><a href="{{ url_for('home') }}#gallery">Gallery</a></li>
+    <li><a href="{{ url_for('cost_estimator') }}" class="active">Cost Estimator</a></li>
+    <li><a href="{{ url_for('home') }}#testimonials">Testimonials</a></li>
+    <li><a href="{{ url_for('home') }}#contact">Contact</a></li>
+    <li><a href="{{ url_for('home') }}#contact" class="btn-quote">Get Quote</a></li>
+</ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-lines"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Kothagudem's Premier Auto Paint Studio</div>
+    <h1 class="hero-title">
+      <span class="line1">Bring back showroom </span>
+      <span class="line2">shine to your car</span>
+    </h1>
+    <p class="hero-sub">
+      <strong>20+ Years</strong> of Professional Car Painting &amp; Restoration Services in Kothagudem, Telangana. From scratch repair to full restorations — we bring your car back to life.
+    </p>
+    <div class="hero-btns">
+      <a href="{{ url_for('cost_estimator') }}" class="btn-primary">⚡ Get Cost Estimate</a>
+      <a href="https://wa.me/917816036366" target="_blank" class="btn-secondary">
+        <span>💬</span> WhatsApp Us
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">2000+</div>
+        <div class="stat-label">Cars Restored</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Satisfaction Rate</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">8</div>
+        <div class="stat-label">Expert Services</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE/AFTER SLIDER -->
+<section class="before-after-section reveal">
+  <div class="section-label">Real Results</div>
+  <h2 class="section-title">Before &amp; After Transformations</h2>
+  <p class="section-sub">Drag the slider to reveal stunning before-and-after results from our workshop</p>
+  <div class="slider-container">
+    <div class="slider-wrapper" id="slider">
+      <!-- AFTER side -->
+      <div class="slider-after">
+        <svg class="car-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="carRedGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#D32F2F"/>
+              <stop offset="100%" style="stop-color:#8B0000"/>
+            </linearGradient>
+            <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#a8d8ea;stop-opacity:0.7"/>
+              <stop offset="100%" style="stop-color:#5fa8d3;stop-opacity:0.5"/>
+            </linearGradient>
+          </defs>
+          <!-- Car body -->
+          <path d="M40 130 L60 90 L100 70 L180 65 L280 68 L340 85 L370 110 L370 145 L40 145 Z" fill="url(#carRedGrad)" stroke="#FF6B6B" stroke-width="1.5"/>
+          <!-- Roof -->
+          <path d="M100 90 L130 68 L250 65 L290 88" fill="none" stroke="#FF8888" stroke-width="2"/>
+          <!-- Windows -->
+          <path d="M118 88 L140 70 L200 68 L200 88 Z" fill="url(#glassGrad)"/>
+          <path d="M210 68 L270 68 L285 88 L210 88 Z" fill="url(#glassGrad)"/>
+          <!-- Wheels -->
+          <circle cx="110" cy="145" r="28" fill="#1a1a1a" stroke="#666" stroke-width="3"/>
+          <circle cx="110" cy="145" r="16" fill="#333" stroke="#888" stroke-width="2"/>
+          <circle cx="110" cy="145" r="5" fill="#aaa"/>
+          <circle cx="290" cy="145" r="28" fill="#1a1a1a" stroke="#666" stroke-width="3"/>
+          <circle cx="290" cy="145" r="16" fill="#333" stroke="#888" stroke-width="2"/>
+          <circle cx="290" cy="145" r="5" fill="#aaa"/>
+          <!-- Lights -->
+          <ellipse cx="360" cy="115" rx="12" ry="8" fill="#FFD700" opacity="0.8"/>
+          <ellipse cx="50" cy="115" rx="10" ry="7" fill="#FF4444" opacity="0.6"/>
+          <!-- Shine -->
+          <path d="M120 80 L220 73" stroke="rgba(255,255,255,0.3)" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <div class="slider-label label-after">AFTER ✓</div>
+      </div>
+      <!-- BEFORE side -->
+      <div class="slider-before" id="sliderBefore">
+        <svg class="car-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="carGrey" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#555"/>
+              <stop offset="100%" style="stop-color:#333"/>
+            </linearGradient>
+          </defs>
+          <path d="M40 130 L60 90 L100 70 L180 65 L280 68 L340 85 L370 110 L370 145 L40 145 Z" fill="url(#carGrey)" stroke="#777" stroke-width="1.5"/>
+          <path d="M100 90 L130 68 L250 65 L290 88" fill="none" stroke="#888" stroke-width="2"/>
+          <path d="M118 88 L140 70 L200 68 L200 88 Z" fill="rgba(150,180,200,0.4)"/>
+          <path d="M210 68 L270 68 L285 88 L210 88 Z" fill="rgba(150,180,200,0.4)"/>
+          <circle cx="110" cy="145" r="28" fill="#1a1a1a" stroke="#555" stroke-width="2"/>
+          <circle cx="110" cy="145" r="16" fill="#2a2a2a" stroke="#666" stroke-width="2"/>
+          <circle cx="110" cy="145" r="5" fill="#777"/>
+          <circle cx="290" cy="145" r="28" fill="#1a1a1a" stroke="#555" stroke-width="2"/>
+          <circle cx="290" cy="145" r="16" fill="#2a2a2a" stroke="#666" stroke-width="2"/>
+          <circle cx="290" cy="145" r="5" fill="#777"/>
+          <!-- Scratches & damage -->
+          <path d="M150 85 L180 110 L160 120" stroke="#222" stroke-width="3" fill="none"/>
+          <path d="M220 78 L240 95" stroke="#222" stroke-width="2" fill="none"/>
+          <ellipse cx="200" cy="100" rx="20" ry="10" fill="rgba(0,0,0,0.3)"/>
+          <path d="M120 80 L220 73" stroke="rgba(255,255,255,0.07)" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <div class="slider-label label-before">BEFORE</div>
+      </div>
+      <div class="slider-divider" id="sliderDivider"></div>
+      <div class="slider-handle">⟺</div>
+    </div>
+    <p class="slider-hint">← Drag to compare →</p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-label">What We Do</div>
+  <h2 class="section-title">Our Services</h2>
+  <p class="section-sub">Professional automotive painting services delivered with precision and passion</p>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="service-icon">🎨</div>
+      <h3>Full Body Painting</h3>
+      <p>Complete exterior repaint using premium automotive paints. Perfect factory-finish results with UV-resistant clear coat.</p>
+      <div class="price-tag">From ₹8,000 →</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔧</div>
+      <h3>Scratch Repair</h3>
+      <p>Deep scratch and surface scuff removal using colour-matched paint blending for seamless invisible repairs.</p>
+      <div class="price-tag">From ₹500 →</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔨</div>
+      <h3>Dent Removal</h3>
+      <p>Professional dent removal and panel reshaping with no trace of previous damage left behind.</p>
+      <div class="price-tag">From ₹800 →</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎭</div>
+      <h3>Color Change Painting</h3>
+      <p>Transform your car's look with a full colour change. Over 500 premium shades to choose from.</p>
+      <div class="price-tag">From ₹12,000 →</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✏️</div>
+      <h3>Touch-Up Painting</h3>
+      <p>Targeted spot repairs for chips, nicks, and minor paint damage. Exact colour matching guaranteed.</p>
+      <div class="price-tag">From ₹300 →</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💎</div>
+      <h3>Ceramic Coating</h3>
+      <p>9H hardness nano-ceramic protection. Hydrophobic, scratch-resistant, UV-protected shine for years.</p>
+      <div class="price-tag">From ₹5,000 →</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🚗</div>
+      <h3>Panel Painting</h3>
+      <p>Individual door, bonnet, or boot lid painting with precision colour-matching to the rest of the vehicle.</p>
+      <div class="price-tag">From ₹1,200 →</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✨</div>
+      <h3>Paint Restoration</h3>
+      <p>Full oxidation removal, deep compounding, polish and protection to revive aged and faded paintwork.</p>
+      <div class="price-tag">From ₹2,500 →</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section id="why">
+  <div class="section-label">Our Edge</div>
+  <h2 class="section-title">Why Choose SSPW</h2>
+  <p class="section-sub">Two decades of trust, craftsmanship, and results that speak louder than words</p>
+  <div class="why-grid reveal">
+    <div class="why-card">
+      <div class="why-icon">🏆</div>
+      <h3>20+ Years Experience</h3>
+      <p>Over two decades perfecting every job. Our experience shows in every panel we touch.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🎨</div>
+      <h3>Premium Paint Quality</h3>
+      <p>Only top-grade automotive paints used — enamel, polyurethane, and 2K finishes.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">👨‍🔧</div>
+      <h3>Skilled Professionals</h3>
+      <p>Certified spray painters trained in the latest techniques and surface preparation.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">💰</div>
+      <h3>Affordable Pricing</h3>
+      <p>Premium quality doesn't need a premium price. Honest quotes with zero hidden charges.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">⚡</div>
+      <h3>Fast Turnaround</h3>
+      <p>Most jobs completed in 1–3 days. We respect your time as much as your car.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">⭐</div>
+      <h3>Customer Satisfaction</h3>
+      <p>2000+ happy customers over 20 years. We don't finish until you're delighted.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-label">Our Work</div>
+  <h2 class="section-title">Work Gallery</h2>
+  <p class="section-sub">A glimpse of the transformations that leave our workshop every week</p>
+  <div class="gallery-grid reveal">
+    <div class="gallery-item" style="grid-column:span 2;">
+      <div class="gallery-thumb" style="background:linear-gradient(135deg,#2d0000,#8B0000,#D32F2F);">🚗</div>
+      <div class="gallery-overlay"><span>Red Full Body Repaint</span><small>Maruti Swift · Kothagudem</small></div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-thumb" style="background:linear-gradient(135deg,#001a33,#003366,#0052a3);">🚙</div>
+      <div class="gallery-overlay"><span>Pearl Blue Transformation</span><small>Honda City · Bhadradri</small></div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-thumb" style="background:linear-gradient(135deg,#1a1a1a,#333,#555);">🏎️</div>
+      <div class="gallery-overlay"><span>Matte Black Finish</span><small>Hyundai i20 · Kothagudem</small></div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-thumb" style="background:linear-gradient(135deg,#1a3300,#336600,#66cc00);">🚕</div>
+      <div class="gallery-overlay"><span>Metallic Green Coat</span><small>Tata Nexon · Khammam</small></div>
+    </div>
+    <div class="gallery-item" style="grid-column:span 2;">
+      <div class="gallery-thumb" style="background:linear-gradient(135deg,#2a1a00,#8B6914,#C9A227);">🚐</div>
+      <div class="gallery-overlay"><span>Golden Metallic Restoration</span><small>Toyota Innova · Bhadrachalam</small></div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-thumb" style="background:linear-gradient(135deg,#1a001a,#4B0082,#8B008B);">🚗</div>
+      <div class="gallery-overlay"><span>Deep Purple Custom</span><small>Mahindra XUV · Kothagudem</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED WORK -->
+<section id="featured">
+  <div class="section-label">Case Studies</div>
+  <h2 class="section-title">Featured Restorations</h2>
+  <p class="section-sub">Real vehicles, real stories, real results from our workshop in Kothagudem</p>
+  <div class="featured-grid reveal">
+    <div class="featured-card">
+      <div class="featured-images">
+        <div class="featured-img before">
+          <div style="font-size:3rem;filter:grayscale(0.8);">🚗</div>
+          <div class="featured-img-label" style="color:#aaa;">Before</div>
+        </div>
+        <div class="featured-img after">
+          <div style="font-size:3rem;">🚗</div>
+          <div class="featured-img-label" style="color:#EF4444;">After</div>
+        </div>
+      </div>
+      <div class="featured-info">
+        <h3>Maruti Swift – Full Body Repaint</h3>
+        <p>Heavily faded and scratched paintwork completely transformed with a vibrant metallic red finish and UV-clear coat. Customer reported paint brighter than showroom delivery.</p>
+        <span class="satisfaction-badge">⭐ 100% Satisfied · Kothagudem</span>
+      </div>
+    </div>
+    <div class="featured-card">
+      <div class="featured-images">
+        <div class="featured-img before">
+          <div style="font-size:3rem;filter:grayscale(0.8);">🚙</div>
+          <div class="featured-img-label" style="color:#aaa;">Before</div>
+        </div>
+        <div class="featured-img after">
+          <div style="font-size:3rem;">🚙</div>
+          <div class="featured-img-label" style="color:#EF4444;">After</div>
+        </div>
+      </div>
+      <div class="featured-info">
+        <h3>Honda City – Accident Repair</h3>
+        <p>Major side-impact dent and scrape on two panels. Dent removal, surface prep, and seamless colour-matched panel repaint. Completed in 2 days.</p>
+        <span class="satisfaction-badge">⭐ 100% Satisfied · Bhadradri</span>
+      </div>
+    </div>
+    <div class="featured-card">
+      <div class="featured-images">
+        <div class="featured-img before">
+          <div style="font-size:3rem;filter:grayscale(0.8);">🏎️</div>
+          <div class="featured-img-label" style="color:#aaa;">Before</div>
+        </div>
+        <div class="featured-img after">
+          <div style="font-size:3rem;">🏎️</div>
+          <div class="featured-img-label" style="color:#EF4444;">After</div>
+        </div>
+      </div>
+      <div class="featured-info">
+        <h3>Hyundai i20 – Matte Wrap Finish</h3>
+        <p>Standard grey repainted in premium matte black with satin trim accents. Ceramic-coated for long-term protection. Customer called it a "different car."</p>
+        <span class="satisfaction-badge">⭐ 100% Satisfied · Kothagudem</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ESTIMATE CTA -->
+<section id="estimate-cta">
+  <div class="estimate-box reveal">
+    <div class="section-label" style="margin-bottom:8px;">Free Estimate</div>
+    <h2>What Will Your Repaint Cost?</h2>
+    <p>Use our instant cost estimator — select your vehicle, service, and damage level to get a realistic price range in seconds.</p>
+    <div class="estimate-features">
+      <span class="est-feat">🚗 All Vehicle Types</span>
+      <span class="est-feat">🎨 8 Services</span>
+      <span class="est-feat">📸 Upload Your Car Photo</span>
+      <span class="est-feat">💬 WhatsApp Quote</span>
+    </div>
+ <button class="cost-estimator"> <a href="{{ url_for('cost_estimator') }}" class="btn primary" style="font-size:1.15rem;padding:16px 40px;">Get Cost Estimate Now</a></button>
+  </div>
+</section> 
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-label">Customer Reviews</div>
+  <h2 class="section-title">What Our Customers Say</h2>
+  <p class="section-sub">Trusted by thousands of car owners across Kothagudem and Telangana</p>
+  <div class="testimonials-grid reveal">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">Got my old Maruti repainted here and I genuinely thought they gave me a new car. The colour match was flawless and the finish was absolutely smooth. Highly recommend to anyone in Kothagudem.</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">RK</div>
+        <div><div class="reviewer-name">Ravi Kumar</div><div class="reviewer-loc">Kothagudem</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">My Honda City had a nasty side dent after an accident. SSPW fixed it in just 2 days and painted it so well that even I couldn't tell where the dent was. Excellent work and very honest pricing.</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">SP</div>
+        <div><div class="reviewer-name">Suresh Prasad</div><div class="reviewer-loc">Bhadradri</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">The ceramic coating they applied on my Nexon is superb. Rain just slides off and it still looks showroom-fresh after 6 months. Will definitely come back for my next car too.</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">LN</div>
+        <div><div class="reviewer-name">Lakshmi Narayana</div><div class="reviewer-loc">Khammam</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">Wanted a full colour change from white to matte black for my i20. The result is absolutely stunning. Everyone thinks it's a brand new car. Srinivas garu personally guided me throughout. Outstanding service!</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">AM</div>
+        <div><div class="reviewer-name">Arun Mohan</div><div class="reviewer-loc">Kothagudem</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">Very professional team. They completed my Innova's full body paint in 3 days as promised and kept the vehicle very clean throughout. The pricing is genuinely affordable for the quality they deliver.</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">VB</div>
+        <div><div class="reviewer-name">Venkata Rao B</div><div class="reviewer-loc">Bhadrachalam</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Reach Us</div>
+  <h2 class="section-title">Contact SSPW</h2>
+  <p class="section-sub">Visit our workshop or reach out — we respond within minutes on WhatsApp</p>
+  <div class="contact-wrapper reveal">
+    <div class="contact-info">
+      <h2>Get In Touch</h2>
+      <div class="contact-detail">
+        <div class="contact-icon">📞</div>
+        <div class="contact-detail-text">
+          <h4>Phone</h4>
+          <a href="tel:+917816036366">+91 78160 36366</a>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">💬</div>
+        <div class="contact-detail-text">
+          <h4>WhatsApp</h4>
+          <a href="https://wa.me/917816036366" target="_blank">Chat with us instantly</a>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">📍</div>
+        <div class="contact-detail-text">
+          <h4>Location</h4>
+          <p>Kothagudem, Bhadradri Kothagudem District, Telangana</p>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">⏰</div>
+        <div class="contact-detail-text">
+          <h4>Working Hours</h4>
+          <p>Monday – Saturday: 9:00 AM – 8:00 PM</p>
+        </div>
+      </div>
+      <div class="map-container">
+        <div class="map-placeholder">
+          <span>📍</span>
+          <p>SSPW Workshop, Kothagudem</p>
+          <a href="https://maps.google.com/?q=Kothagudem+Telangana" target="_blank">View on Google Maps →</a>
+        </div>
+      </div>
+    </div>
+    <div>
+<form id="quoteForm" class="contact-form" onsubmit="handleContactForm(event)">
+    <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" name="name" placeholder="Ravi Kumar" required>
+    </div>
+
+    <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" name="phone" placeholder="+91 98765 43210" required>
+    </div>
+
+    <div class="form-group">
+        <label>Service Required</label>
+        <select name="service">
+            <option value="">Select a service...</option>
+            <option value="Full Body Painting">Full Body Painting</option>
+               <option>Dent Removal</option>
+            <option>Color Change Painting</option>
+            <option>Touch-Up Painting</option>
+            <option>Ceramic Coating</option>
+            <option>Panel Painting</option>
+            <option>Paint Restoration</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Vehicle Model</label>
+        <input type="text" name="vehicle" placeholder="e.g. Maruti Swift 2019">
+    </div>
+
+    <div class="form-group">
+        <label>Message</label>
+        <textarea name="message" placeholder="Tell us about your car..."></textarea>
+    </div>
+
+    <button type="submit" class="btn-primary" style="width:100%;padding:14px;">SEND MESSAGE →</button>
+</form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="footer-logo">SSPW</span>
+      <p>Srinivas Spray Painting Works — Kothagudem's most trusted automobile spray painting and restoration workshop for over 20 years.</p>
+      <div class="footer-social">
+        <a href="https://wa.me/917816036366" class="social-btn" target="_blank">💬</a>
+        <a href="tel:+917816036366" class="social-btn">📞</a>
+        <a href="#contact" class="social-btn">✉️</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul class="footer-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="cost-estimator.html">Cost Estimator</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul class="footer-links">
+        <li><a href="#services">Full Body Painting</a></li>
+        <li><a href="#services">Scratch Repair</a></li>
+        <li><a href="#services">Dent Removal</a></li>
+        <li><a href="#services">Color Change</a></li>
+        <li><a href="#services">Ceramic Coating</a></li>
+        <li><a href="#services">Paint Restoration</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <div class="footer-contact-item">
+        <span class="icon">📞</span>
+        <p><a href="tel:+917816036366" style="color:var(--silver-light);text-decoration:none;">+91 78160 36366</a></p>
+      </div>
+      <div class="footer-contact-item">
+        <span class="icon">📍</span>
+        <p>Kothagudem, Telangana</p>
+      </div>
+      <div class="footer-contact-item">
+        <span class="icon">⏰</span>
+        <p>Mon–Sat: 9AM – 8PM</p>
+      </div>
+      <div class="footer-contact-item">
+        <span class="icon">⭐</span>
+        <p>20+ Years of Excellence</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 SSPW – Srinivas Spray Painting Works. All Rights Reserved.</p>
+    <span class="footer-tagline">CRAFTED WITH ❤️ IN KOTHAGUDEM</span>
+  </div>
+</footer>
+
+<!-- FLOATING BUTTONS -->
+<a href="https://wa.me/917816036366" class="float-wa" target="_blank" title="WhatsApp Us">💬</a>
+<a href="tel:+917816036366" class="float-call" title="Call Now">📞</a>
+<script src="/static/script.js"></script>
+
+<script>
+// Navbar scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);
+});
+
+// Hamburger
+document.getElementById('hamburger').addEventListener('click',function(){
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+// Close nav on link click
+document.querySelectorAll('.nav-links a').forEach(a=>{
+  a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open'));
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) { e.target.classList.add('visible'); }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// Before/After Slider
+(function(){
+  const slider = document.getElementById('slider');
+  const before = document.getElementById('sliderBefore');
+  const divider = document.getElementById('sliderDivider');
+  let dragging = false;
+  function setPos(x){
+    const rect = slider.getBoundingClientRect();
+    let pct = Math.max(5,Math.min(95,(x-rect.left)/rect.width*100));
+    before.style.clipPath = `inset(0 ${100-pct}% 0 0)`;
+    divider.style.left = pct+'%';
+    slider.querySelector('.slider-handle').style.left = pct+'%';
+    slider.querySelector('.slider-handle').style.transform = 'translate(-50%,-50%)';
+  }
+  slider.addEventListener('mousedown',e=>{dragging=true;setPos(e.clientX);});
+  window.addEventListener('mousemove',e=>{if(dragging)setPos(e.clientX);});
+  window.addEventListener('mouseup',()=>dragging=false);
+  slider.addEventListener('touchstart',e=>{dragging=true;setPos(e.touches[0].clientX);},{passive:true});
+  window.addEventListener('touchmove',e=>{if(dragging)setPos(e.touches[0].clientX);},{passive:true});
+  window.addEventListener('touchend',()=>dragging=false);
+  // Initial position
+  setPos(slider.getBoundingClientRect().left + slider.getBoundingClientRect().width*0.5);
+})();
+
+
+</script>
+</body>
+</html>

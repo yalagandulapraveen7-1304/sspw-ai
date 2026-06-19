@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+.cost-estimator {
+    @apply bg-red-600 text-white px-10 py-4 text-lg rounded;
+}
+.logo-sspw{
+    @apply gap-5 p-4 space-x-3
+}

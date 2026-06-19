@@ -1,10 +1,18 @@
+import os
+
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+DB_PATH = os.path.join(BASE_DIR, 'sspw_data.db')
+
+
 from flask import Flask, request, render_template, jsonify
 import sqlite3
 
 app = Flask(__name__)
 
 def setup_database():
-    conn = sqlite3.connect('sspw_data.db', check_same_thread=False)
+    conn = sqlite3.connect(DB_PATH, check_same_thread=False)
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS contact_inquiries (

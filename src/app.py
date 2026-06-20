@@ -1,9 +1,9 @@
 import os
-
+import psycopg2
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-DB_PATH = os.path.join(BASE_DIR, 'sspw_data.db')
+DB_URL = "postgresql://postgres:ammulupremnishi1304@aws-0-ap-south-1.pooler.supabase.com:6543/postgres"
 
 
 from flask import Flask, request, render_template, jsonify
@@ -44,30 +44,36 @@ def admin_dashboard():
     all_inquiries = cursor.fetchall() 
     return render_template('admin.html', inquiries=all_inquiries)
 
-# Route to catch the form submission (ONLY ONE EXISTS NOW)
-@app.route('/submit-quote', methods=['POST'])
-def handle_quote():
-    name = request.form.get('name')
-    phone = request.form.get('phone')
-    service = request.form.get('service')
-    vehicle = request.form.get('vehicle')
-    message = request.form.get('message')
+# Route to catch the form submission (ONLY ONE EXISTS NOW)@app.route('/submit-quote', methods=['POST'])
+def submit_quote():
+    # Assuming your frontend sends JSON data. Adjust to request.form if using standard HTML forms.
+    data = request.json 
+    name = data.get('name')
+    phone = data.get('phone')
+    service = data.get('service')
+    vehicle = data.get('vehicle')
+    message = data.get('message')
 
-    # DIAGNOSTIC: This forces Python to print exactly what the browser sent
-    print(f"--- INCOMING DATA: Name: {name}, Phone: {phone} ---")
-
-    if not name or not phone:
-        # Returning JSON instead of text prevents JS from crashing
-        return jsonify({"status": "error", "message": "Name and Phone are required."}), 400
-
-    cursor = db_conn.cursor()
-    cursor.execute('''
-        INSERT INTO contact_inquiries (name, phone_number, service_required, vehicle_model, message)
-        VALUES (?, ?, ?, ?, ?)
-    ''', (name, phone, service, vehicle, message))
-    db_conn.commit()
-
-    return jsonify({"status": "success", "message": "Quote request received successfully!"})
+    try:
+        # Connect to Supabase
+        conn = psycopg2.connect(DB_URL)
+        cursor = conn.cursor()
+        
+        # INSERT the data using %s placeholders
+        cursor.execute('''
+            INSERT INTO quotes (name, phone, service, vehicle, message)
+            VALUES (%s, %s, %s, %s, %s)
+        ''', (name, phone, service, vehicle, message))
+        
+        conn.commit()
+        cursor.close()
+        conn.close()
+        
+        return jsonify({'success': True, 'message': 'Quote submitted successfully!'})
+        
+    except Exception as e:
+        print(f"Database error: {e}") # This will log in Vercel so we can debug if it fails
+        return jsonify({'success': False, 'error': 'Server error'}), 500
 @app.route('/cost-estimator')
 def cost_estimator():
     return render_template('cost-estimator.html')

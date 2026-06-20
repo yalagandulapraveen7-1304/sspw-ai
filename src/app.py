@@ -4,7 +4,6 @@ import psycopg2
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_URL = "postgresql://postgres:9lkVPMXKCm9Mvvgp@db.xqtetjnwycdyyxlbbyko.supabase.co:5432/postgres"
 from flask import Flask, request, render_template, jsonify
-import sqlite3
 
 app = Flask(__name__)
 
@@ -15,13 +14,22 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
-# --- Admin Route ---
+# --- Admin Route ---# --- Admin Route ---
 @app.route('/admin')
 def admin_dashboard():
-    cursor = db_conn.cursor()
-    # Grab everything, sorted by newest first
-    cursor.execute("SELECT * FROM contact_inquiries ORDER BY submitted_at DESC")
-    all_inquiries = cursor.fetchall() 
+    # 1. Open a fresh connection for this specific page load
+    conn = psycopg2.connect(DB_URL)
+    cursor = conn.cursor()
+    
+    try:
+        # 2. Query the CORRECT table and sort by the CORRECT column
+        cursor.execute("SELECT * FROM quotes ORDER BY id DESC")
+        all_inquiries = cursor.fetchall()
+    finally:
+        # 3. CRITICAL: Always close the doors you open to prevent server crashes
+        cursor.close()
+        conn.close()
+        
     return render_template('admin.html', inquiries=all_inquiries)
 
 # Route to catch the form submission (ONLY ONE EXISTS NOW)@app.route('/submit-quote', methods=['PO# Route to catch the form submission

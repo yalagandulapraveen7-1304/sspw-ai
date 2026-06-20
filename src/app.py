@@ -2,11 +2,10 @@ import os
 import psycopg2
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_URL = "postgresql://postgres:9lkVPMXKCm9Mvvgp@db.xqtetjnwycdyyxlbbyko.supabase.co:5432/postgres"
+DB_URL = "postgresql://postgres:9lkVPMXKCm9Mvvgp@db.xqtetjnwycdyyxlbbyko.supabase.co:5432/postgres?sslmode=require"
 from flask import Flask, request, render_template, jsonify
 
 app = Flask(__name__)
-
 
 
 # Route to serve your website

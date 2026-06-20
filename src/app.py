@@ -28,16 +28,18 @@ def admin_dashboard():
     return render_template('admin.html', inquiries=all_inquiries)
 
 # Route to catch the form submission (ONLY ONE EXISTS NOW)@app.route('/submit-quote', methods=['PO# Route to catch the form submission
+# Leave this exactly as it is
 @app.route('/submit-quote', methods=['POST'])
 def submit_quote():
-    # Assuming your frontend sends JSON...
-    data = request.json 
-    name = data.get('name')
-    phone = data.get('phone')
-    service = data.get('service')
-    vehicle = data.get('vehicle')
-    message = data.get('message')
-
+    # Delete the request.json line entirely.
+    # Use request.form so Flask can read the standard frontend FormData
+    name = request.form.get('name')
+    phone = request.form.get('phone')
+    service = request.form.get('service')
+    vehicle = request.form.get('vehicle')
+    message = request.form.get('message')
+    
+    # ... the rest of your Supabase database code stays exactly the same ...
     try:
         # Connect to Supabase
         conn = psycopg2.connect(DB_URL)

@@ -1,11 +1,12 @@
 import os
 import psycopg2
 from flask import Flask, request, render_template, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CORS(app)  # This is the ONLY initialization you need
 
-# Pull the database URL from Render's environment variables, NOT hardcoded.
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_URL = os.environ.get("DATABASE_URL")
 
 @app.route('/')

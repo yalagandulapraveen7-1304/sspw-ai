@@ -27,9 +27,10 @@ def admin_dashboard():
     all_inquiries = cursor.fetchall() 
     return render_template('admin.html', inquiries=all_inquiries)
 
-# Route to catch the form submission (ONLY ONE EXISTS NOW)@app.route('/submit-quote', methods=['POST'])
+# Route to catch the form submission (ONLY ONE EXISTS NOW)@app.route('/submit-quote', methods=['PO# Route to catch the form submission
+@app.route('/submit-quote', methods=['POST'])
 def submit_quote():
-    # Assuming your frontend sends JSON data. Adjust to request.form if using standard HTML forms.
+    # Assuming your frontend sends JSON...
     data = request.json 
     name = data.get('name')
     phone = data.get('phone')

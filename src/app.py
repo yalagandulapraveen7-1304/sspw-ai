@@ -2,8 +2,7 @@ import os
 import psycopg2
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_URL = "postgresql://postgres:9lkVPMXKCm9Mvvgp@db.xqtetjnwycdyyxlbbyko.supabase.co:5432/postgres"
-
+DB_URL = "postgresql://postgres.xqtetjnwycdyyxlbbyko:9lkVPMXKCm9Mvvgp@aws-0-ap-south-1.pooler.supabase.com:6543/postgres"
 
 from flask import Flask, request, render_template, jsonify
 import sqlite3

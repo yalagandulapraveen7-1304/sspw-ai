@@ -37,7 +37,7 @@
         <tbody>
             {% for row in inquiries %}
             <tr>
-                <td>#{{ row[0] }}</td>
+              <td>#{{ loop.index }}</td>
                 <td>{{ row[6] }}</td>
                 <td><strong>{{ row[1] }}</strong></td>
                 <td>{{ row[2] }}</td>

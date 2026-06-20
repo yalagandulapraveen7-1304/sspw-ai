@@ -2,9 +2,16 @@ import os
 import psycopg2
 from flask import Flask, request, render_template, jsonify
 from flask_cors import CORS
+from flask_basicauth import BasicAuth # 1. Import the security tool
 
 app = Flask(__name__)
-CORS(app)  # This is the ONLY initialization you need
+CORS(app)
+
+# 2. Set the exact username and password for SSPW
+app.config['BASIC_AUTH_USERNAME'] = 'santhosh'
+app.config['BASIC_AUTH_PASSWORD'] = 'prashanthi' # Change this to whatever you want
+
+basic_auth = BasicAuth(app) # 3. Turn the security system on
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_URL = os.environ.get("DATABASE_URL")
@@ -13,8 +20,11 @@ DB_URL = os.environ.get("DATABASE_URL")
 def home():
     return render_template('index.html')
 
+# 4. Add the @basic_auth.required padlock to this specific route!
 @app.route('/admin')
+@basic_auth.required
 def admin_dashboard():
+    # ... the rest of your database connection code stays exactly the same ...
     # 1. Open a fresh connection for this specific page load
     conn = psycopg2.connect(DB_URL)
     cursor = conn.cursor()

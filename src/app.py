@@ -11,24 +11,7 @@ import sqlite3
 
 app = Flask(__name__)
 
-def setup_database():
-    conn = sqlite3.connect(DB_PATH, check_same_thread=False)
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS contact_inquiries (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            phone_number TEXT NOT NULL,
-            service_required TEXT,
-            vehicle_model TEXT,
-            message TEXT,
-            submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    ''')
-    conn.commit()
-    return conn
 
-db_conn = setup_database()
 
 # Route to serve your website
 @app.route('/')

@@ -4,17 +4,19 @@ from flask import Flask, request, render_template, jsonify
 from flask_cors import CORS
 from flask_basicauth import BasicAuth # 1. Import the security tool
 
-app = Flask(__name__)
-app.config['TEMPLATES_AUTO_RELOAD'] = True
-CORS(app)
-
-# 2. Set the exact username and password for SSPW
-app.config['BASIC_AUTH_USERNAME'] = 'santhosh'
-app.config['BASIC_AUTH_PASSWORD'] = 'prashanthi' # Change this to whatever you want
-
-basic_auth = BasicAuth(app) # 3. Turn the security system on
-
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+app = Flask(
+    __name__,
+    template_folder=os.path.join(BASE_DIR, 'templates'),
+    static_folder=os.path.join(BASE_DIR, 'static')
+)
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.config['BASIC_AUTH_USERNAME'] = 'santhosh'
+app.config['BASIC_AUTH_PASSWORD'] = 'prashanthi'
+
+basic_auth = BasicAuth(app)
+CORS(app)
 DB_URL = os.environ.get("DATABASE_URL")
 
 @app.route('/')

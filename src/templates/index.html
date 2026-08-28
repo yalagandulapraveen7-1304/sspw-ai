@@ -369,7 +369,12 @@
       /* BEFORE/AFTER CAROUSEL */
       .before-after-section {
         padding: 80px 5%;
-        background: linear-gradient(180deg, #0a0a0a 0%, #120303 50%, #0a0a0a 100%);
+        background: linear-gradient(
+          180deg,
+          #0a0a0a 0%,
+          #120303 50%,
+          #0a0a0a 100%
+        );
         position: relative;
         overflow: hidden;
       }
@@ -427,7 +432,7 @@
         top: 14px;
         padding: 6px 14px;
         border-radius: 20px;
-        font-family: 'Rajdhani', sans-serif;
+        font-family: "Rajdhani", sans-serif;
         font-weight: 700;
         font-size: 0.85rem;
         letter-spacing: 1.5px;
@@ -459,7 +464,7 @@
         border-radius: 8px;
       }
       .slide-title-group h3 {
-        font-family: 'Rajdhani', sans-serif;
+        font-family: "Rajdhani", sans-serif;
         font-size: 1.25rem;
         font-weight: 700;
         color: var(--silver-light);
@@ -480,7 +485,7 @@
         color: var(--red-bright);
         padding: 5px 14px;
         border-radius: 20px;
-        font-family: 'Rajdhani', sans-serif;
+        font-family: "Rajdhani", sans-serif;
         font-weight: 700;
         font-size: 0.85rem;
         letter-spacing: 0.5px;
@@ -513,8 +518,12 @@
         box-shadow: 0 0 20px rgba(211, 47, 47, 0.6);
         transform: translateY(-50%) scale(1.08);
       }
-      .carousel-prev { left: -24px; }
-      .carousel-next { right: -24px; }
+      .carousel-prev {
+        left: -24px;
+      }
+      .carousel-next {
+        right: -24px;
+      }
 
       /* Pagination dots */
       .carousel-dots {
@@ -549,10 +558,19 @@
         .compare-box {
           height: 220px;
         }
-        .carousel-prev { left: 6px; }
-        .carousel-next { right: 6px; }
-        .carousel-slide { padding: 14px; }
-        .slide-info { flex-direction: column; align-items: flex-start; }
+        .carousel-prev {
+          left: 6px;
+        }
+        .carousel-next {
+          right: 6px;
+        }
+        .carousel-slide {
+          padding: 14px;
+        }
+        .slide-info {
+          flex-direction: column;
+          align-items: flex-start;
+        }
       }
 
       /* SERVICES */
@@ -1436,12 +1454,25 @@
       <div class="section-label">Real Transformations</div>
       <h2 class="section-title">Before &amp; After Showcase</h2>
       <p class="section-sub">
-        Explore real before-and-after vehicle restorations completed at our Kothagudem workshop
+        Explore real before-and-after vehicle restorations completed at our
+        Kothagudem workshop
       </p>
       <div class="carousel-container">
         <!-- Navigation Buttons -->
-        <button class="carousel-btn carousel-prev" id="carouselPrev" aria-label="Previous Slide">❮</button>
-        <button class="carousel-btn carousel-next" id="carouselNext" aria-label="Next Slide">❯</button>
+        <button
+          class="carousel-btn carousel-prev"
+          id="carouselPrev"
+          aria-label="Previous Slide"
+        >
+          ❮
+        </button>
+        <button
+          class="carousel-btn carousel-next"
+          id="carouselNext"
+          aria-label="Next Slide"
+        >
+          ❯
+        </button>
 
         <div class="carousel-track-wrapper">
           <div class="carousel-track" id="carouselTrack">
@@ -1450,17 +1481,29 @@
               <div class="carousel-compare-grid">
                 <div class="compare-box">
                   <span class="compare-badge badge-before">Before Repair</span>
-                  <img src="{{ url_for('static', filename='images/alto_before.jpg') }}" alt="Maruti Alto Scratched Before Painting">
+                  <img
+                    src="{{ url_for('static', filename='images/alto_before.jpg') }}"
+                    alt="Maruti Alto Scratched Before Painting"
+                  />
                 </div>
                 <div class="compare-box">
-                  <span class="compare-badge badge-after">After Showroom Finish ✓</span>
-                  <img src="{{ url_for('static', filename='images/alto_after.jpg') }}" alt="Maruti Alto Restored Full Body Repaint">
+                  <span class="compare-badge badge-after"
+                    >After Showroom Finish ✓</span
+                  >
+                  <img
+                    src="{{ url_for('static', filename='images/alto_after.jpg') }}"
+                    alt="Maruti Alto Restored Full Body Repaint"
+                  />
                 </div>
               </div>
               <div class="slide-info">
                 <div class="slide-title-group">
                   <h3>Maruti Alto – Full Body Gloss Repaint</h3>
-                  <p>Repaired deep side door scrapes, exposed primer spots, and applied multi-layer metallic red with UV-resistant clear coat.</p>
+                  <p>
+                    Repaired deep side door scrapes, exposed primer spots, and
+                    applied multi-layer metallic red with UV-resistant clear
+                    coat.
+                  </p>
                 </div>
                 <div class="slide-meta">
                   <span class="slide-tag">Full Body Paint · Kothagudem</span>
@@ -1472,21 +1515,40 @@
             <div class="carousel-slide">
               <div class="carousel-compare-grid">
                 <div class="compare-box">
-                  <span class="compare-badge badge-before">Before Peeling Paint</span>
-                  <img src="{{ url_for('static', filename='images/santro_before.jpg') }}" alt="Hyundai Santro Sun Damaged Bonnet">
+                  <span class="compare-badge badge-before"
+                    >Before Peeling Paint</span
+                  >
+                  <img
+                    src="{{ url_for('static', filename='images/santro_before.jpg') }}"
+                    alt="Hyundai Santro Sun Damaged Bonnet"
+                  />
                 </div>
                 <div class="compare-box">
-                  <span class="compare-badge badge-after">After Factory Match ✓</span>
-                  <img src="{{ url_for('static', filename='images/santro_after.jpg') }}" alt="Hyundai Santro Restored Front Panel">
+                  <span class="compare-badge badge-after"
+                    >After Factory Match ✓</span
+                  >
+                  <img
+                    src="{{ url_for('static', filename='images/santro_after.jpg') }}"
+                    alt="Hyundai Santro Restored Front Panel"
+                  />
                 </div>
               </div>
               <div class="slide-info">
                 <div class="slide-title-group">
-                  <h3>Hyundai Santro – Bonnet Clear Coat &amp; Sun Damage Restoration</h3>
-                  <p>Stripped sun-damaged clear coat on bonnet and bumper, surface primed, and recoated with 100% exact factory champagne silver match.</p>
+                  <h3>
+                    Hyundai Santro – Bonnet Clear Coat &amp; Sun Damage
+                    Restoration
+                  </h3>
+                  <p>
+                    Stripped sun-damaged clear coat on bonnet and bumper,
+                    surface primed, and recoated with 100% exact factory
+                    champagne silver match.
+                  </p>
                 </div>
                 <div class="slide-meta">
-                  <span class="slide-tag">Sun Damage Restoration · Bhadradri</span>
+                  <span class="slide-tag"
+                    >Sun Damage Restoration · Bhadradri</span
+                  >
                 </div>
               </div>
             </div>
@@ -1495,21 +1557,40 @@
             <div class="carousel-slide">
               <div class="carousel-compare-grid">
                 <div class="compare-box">
-                  <span class="compare-badge badge-before">Before Dent &amp; Scrape</span>
-                  <img src="{{ url_for('static', filename='images/dzire_before.jpg') }}" alt="Maruti Dzire Wheel Arch Dent Before">
+                  <span class="compare-badge badge-before"
+                    >Before Dent &amp; Scrape</span
+                  >
+                  <img
+                    src="{{ url_for('static', filename='images/dzire_before.jpg') }}"
+                    alt="Maruti Dzire Wheel Arch Dent Before"
+                  />
                 </div>
                 <div class="compare-box">
-                  <span class="compare-badge badge-after">After Paint Blend ✓</span>
-                  <img src="{{ url_for('static', filename='images/dzire_after.jpg') }}" alt="Maruti Dzire After Seamless Repaint">
+                  <span class="compare-badge badge-after"
+                    >After Paint Blend ✓</span
+                  >
+                  <img
+                    src="{{ url_for('static', filename='images/dzire_after.jpg') }}"
+                    alt="Maruti Dzire After Seamless Repaint"
+                  />
                 </div>
               </div>
               <div class="slide-info">
                 <div class="slide-title-group">
-                  <h3>Maruti Dzire – Rear Quarter Dent Removal &amp; Paint Blending</h3>
-                  <p>Collision dent pulled, shaped with fine body filler, and precision spray-blended across the panel with zero visible edges.</p>
+                  <h3>
+                    Maruti Dzire – Rear Quarter Dent Removal &amp; Paint
+                    Blending
+                  </h3>
+                  <p>
+                    Collision dent pulled, shaped with fine body filler, and
+                    precision spray-blended across the panel with zero visible
+                    edges.
+                  </p>
                 </div>
                 <div class="slide-meta">
-                  <span class="slide-tag">Dent &amp; Panel Paint · Khammam</span>
+                  <span class="slide-tag"
+                    >Dent &amp; Panel Paint · Khammam</span
+                  >
                 </div>
               </div>
             </div>
@@ -1518,21 +1599,37 @@
             <div class="carousel-slide">
               <div class="carousel-compare-grid">
                 <div class="compare-box">
-                  <span class="compare-badge badge-before">Before Fleet Repair</span>
-                  <img src="{{ url_for('static', filename='images/bus_before.jpg') }}" alt="TSRTC Commercial Bus Before Bodywork">
+                  <span class="compare-badge badge-before"
+                    >Before Fleet Repair</span
+                  >
+                  <img
+                    src="{{ url_for('static', filename='images/bus_before.jpg') }}"
+                    alt="TSRTC Commercial Bus Before Bodywork"
+                  />
                 </div>
                 <div class="compare-box">
-                  <span class="compare-badge badge-after">After Fleet Repaint ✓</span>
-                  <img src="{{ url_for('static', filename='images/bus_after.jpg') }}" alt="TSRTC Bus Restored Commercial Finish">
+                  <span class="compare-badge badge-after"
+                    >After Fleet Repaint ✓</span
+                  >
+                  <img
+                    src="{{ url_for('static', filename='images/bus_after.jpg') }}"
+                    alt="TSRTC Bus Restored Commercial Finish"
+                  />
                 </div>
               </div>
               <div class="slide-info">
                 <div class="slide-title-group">
                   <h3>TSRTC Palle Velugu – Commercial Fleet Repaint</h3>
-                  <p>Heavy commercial sheet-metal reinforcement, body rust treatment, and dual-tone industrial polyurethane spray finish.</p>
+                  <p>
+                    Heavy commercial sheet-metal reinforcement, body rust
+                    treatment, and dual-tone industrial polyurethane spray
+                    finish.
+                  </p>
                 </div>
                 <div class="slide-meta">
-                  <span class="slide-tag">Heavy Vehicle Paint · Kothagudem Depot</span>
+                  <span class="slide-tag"
+                    >Heavy Vehicle Paint · Kothagudem Depot</span
+                  >
                 </div>
               </div>
             </div>
@@ -1541,21 +1638,39 @@
             <div class="carousel-slide">
               <div class="carousel-compare-grid">
                 <div class="compare-box">
-                  <span class="compare-badge badge-before">Putty &amp; Body Shaping</span>
-                  <img src="{{ url_for('static', filename='images/tata_punch_putty.jpg') }}" alt="Tata SUV Body Filler Shaping">
+                  <span class="compare-badge badge-before"
+                    >Putty &amp; Body Shaping</span
+                  >
+                  <img
+                    src="{{ url_for('static', filename='images/tata_punch_putty.jpg') }}"
+                    alt="Tata SUV Body Filler Shaping"
+                  />
                 </div>
                 <div class="compare-box">
-                  <span class="compare-badge badge-after">Anti-Rust Primer Seal ✓</span>
-                  <img src="{{ url_for('static', filename='images/tata_punch_primer.jpg') }}" alt="Tata SUV Primed Panel Sealing">
+                  <span class="compare-badge badge-after"
+                    >Anti-Rust Primer Seal ✓</span
+                  >
+                  <img
+                    src="{{ url_for('static', filename='images/tata_punch_primer.jpg') }}"
+                    alt="Tata SUV Primed Panel Sealing"
+                  />
                 </div>
               </div>
               <div class="slide-info">
                 <div class="slide-title-group">
-                  <h3>Tata Punch SUV – Panel Alignment &amp; Anti-Rust Priming</h3>
-                  <p>High-precision multi-stage surface leveling, seam contouring, and electro-static protective primer sealing prior to base coat.</p>
+                  <h3>
+                    Tata Punch SUV – Panel Alignment &amp; Anti-Rust Priming
+                  </h3>
+                  <p>
+                    High-precision multi-stage surface leveling, seam
+                    contouring, and electro-static protective primer sealing
+                    prior to base coat.
+                  </p>
                 </div>
                 <div class="slide-meta">
-                  <span class="slide-tag">Surface Prep &amp; Priming · Workshop</span>
+                  <span class="slide-tag"
+                    >Surface Prep &amp; Priming · Workshop</span
+                  >
                 </div>
               </div>
             </div>
@@ -1762,10 +1877,6 @@
               src="{{ url_for('static', filename='images/tata_punch_primer.jpg') }}"
               alt="Tata SUV Primer Application"
             />
-          </div>
-          <div class="gallery-overlay">
-            <span>Tata Punch SUV – Anti-Rust Primer Coat</span
-            ><small>Pre-Paint Surface Sealing · Workshop</small>
           </div>
         </div>
         <div class="gallery-item" style="grid-column: span 2">
@@ -2369,7 +2480,9 @@
           if (index >= slides.length) index = 0;
           currentIndex = index;
           track.style.transform = `translateX(-${currentIndex * 100}%)`;
-          dots.forEach((d, i) => d.classList.toggle("active", i === currentIndex));
+          dots.forEach((d, i) =>
+            d.classList.toggle("active", i === currentIndex),
+          );
         }
 
         nextBtn?.addEventListener("click", () => {
@@ -2418,7 +2531,9 @@
         }
 
         const container = document.querySelector(".carousel-container");
-        container?.addEventListener("mouseenter", () => clearInterval(autoPlayTimer));
+        container?.addEventListener("mouseenter", () =>
+          clearInterval(autoPlayTimer),
+        );
         container?.addEventListener("mouseleave", () => startAutoPlay());
 
         startAutoPlay();

@@ -533,50 +533,55 @@
     <div class="error-msg" id="err-damage">Please select a damage level.</div>
   </div>
 
-<div class="section" id="colorQualitySection">
-  <div class="section-header">
-    <div class="number-circle">5</div>
-    <div>
-      <h2>Select Your Color Quality</h2>
-      <p class="subtitle">Choose the finish quality for your paint job</p>
+  <!-- STEP 5: Color Quality -->
+  <div class="step-card" id="colorQualitySection">
+    <div class="step-header">
+      <div class="step-num">5</div>
+      <div>
+        <div class="step-title">Paint Quality &amp; Finish</div>
+        <div class="step-subtitle">Choose the finish quality for your vehicle's paint job</div>
+      </div>
+    </div>
+
+    <div class="options-grid">
+      <div class="option-card selected" data-value="normal">
+        <h3>Normal Gloss</h3>
+        <p>Standard OEM glossy finish with high durability</p>
+      </div>
+      <div class="option-card" data-value="matte">
+        <h3>Matte Finish</h3>
+        <p>Ultra-sleek flat, non-reflective finish</p>
+      </div>
+      <div class="option-card" data-value="fancy">
+        <h3>Fancy Metallic</h3>
+        <p>Deep metallic gloss with intense light reflection</p>
+      </div>
+      <div class="option-card" data-value="premium">
+        <h3>Premium Ceramic</h3>
+        <p>Multi-coat ceramic gloss with scratch protection</p>
+      </div>
     </div>
   </div>
 
-  <div class="options-grid">
-    <div class="option-card" data-value="matte">
-      <h3>Matte</h3>
-      <p>Flat, non-reflective finish</p>
-    </div>
-    <div class="option-card" data-value="normal">
-      <h3>Normal</h3>
-      <p>Standard glossy finish</p>
-    </div>
-    <div class="option-card" data-value="fancy">
-      <h3>Fancy</h3>
-      <p>Premium gloss with extra shine</p>
-    </div>
-    <div class="option-card" data-value="premium">
-      <h3>Premium</h3>
-      <p>Top-tier finish with added protection</p>
-    </div>
-  </div>
-</div>
-  <!-- STEP 5: Upload Photo -->
-  <div class="step-card" id="step5">
+  <!-- STEP 6: Upload Photo -->
+  <div class="step-card" id="step6">
     <div class="step-header">
       <div class="step-num">6</div>
       <div>
         <div class="step-title">Upload Vehicle Photo</div>
-        <div class="step-subtitle">Optional but helps us give a more accurate quote on WhatsApp</div>
+        <div class="step-subtitle">Helps our technicians verify panel condition and give an exact quote on WhatsApp</div>
       </div>
     </div>
     <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
       <input type="file" id="fileInput" accept="image/*" multiple>
       <div class="upload-icon" id="uploadIcon">📸</div>
-      <h4 id="uploadTitle">Tap to Upload Photos</h4>
+      <h4 id="uploadTitle">Tap to Upload Vehicle Photos</h4>
       <p id="uploadSub">JPG, PNG, WEBP supported · Up to 5 photos</p>
       <div class="upload-preview" id="uploadPreview"></div>
     </div>
+    <p style="margin-top:10px;font-size:0.8rem;color:var(--silver-dark);text-align:center;">
+      💡 Tip: After calculating your estimate, clicking <strong>"Send Quote on WhatsApp"</strong> will open the chat with your estimate breakdown ready to attach your photos!
+    </p>
   </div>
 
   <!-- STEP 6: Notes -->
@@ -684,6 +689,15 @@ zone.addEventListener('drop',e=>{
 // Vehicle type multipliers
 const vehicleMult = {hatchback:1,sedan:1.2,suv:1.5,mpv:1.4,truck:1.8,bike:0.5};
 const brandMult = {maruti:1,hyundai:1.05,honda:1.1,tata:1,mahindra:1.15,toyota:1.2,kia:1.1,ford:1.1,renault:1.05,volkswagen:1.25,hero:0.6,other:1};
+const colorMult = {normal:1.0,matte:1.15,fancy:1.2,premium:1.35};
+
+// Color Quality Selection
+document.querySelectorAll('#colorQualitySection .option-card').forEach(card => {
+  card.addEventListener('click', function() {
+    document.querySelectorAll('#colorQualitySection .option-card').forEach(c => c.classList.remove('selected'));
+    this.classList.add('selected');
+  });
+});
 
 function getSelected(containerId, selector='.pill,.brand-pill,.damage-card'){
   return document.querySelector(`#${containerId} ${selector}.selected`);
@@ -698,6 +712,7 @@ function calculateEstimate(){
   const vb = getSelected('vehicleBrand','.brand-pill');
   const svcs = getSelectedMulti('serviceType');
   const dmg = getSelected('damageLevel','.damage-card');
+  const cq = document.querySelector('#colorQualitySection .option-card.selected');
 
   document.getElementById('err-vehicle').classList.toggle('show',!vt);
   document.getElementById('err-brand').classList.toggle('show',!vb);
@@ -710,6 +725,7 @@ function calculateEstimate(){
   const vm = vehicleMult[vt.dataset.val]||1;
   const bm = brandMult[vb.dataset.val]||1;
   const dm = parseFloat(dmg.dataset.mult)||1;
+  const cm = cq ? (colorMult[cq.dataset.value] || 1) : 1;
 
   let baseMin=0, baseMax=0;
   svcs.forEach(s=>{
@@ -717,22 +733,31 @@ function calculateEstimate(){
     baseMax += parseInt(s.dataset.max)||0;
   });
 
-  const finalMin = Math.round(baseMin * vm * bm * dm / 100)*100;
-  const finalMax = Math.round(baseMax * vm * bm * dm / 100)*100;
+  const finalMin = Math.round(baseMin * vm * bm * dm * cm / 100)*100;
+  const finalMax = Math.round(baseMax * vm * bm * dm * cm / 100)*100;
 
   document.getElementById('resultRange').textContent = `₹${finalMin.toLocaleString('en-IN')} – ₹${finalMax.toLocaleString('en-IN')}`;
   
-  const desc = `Estimated for a ${vt.dataset.val} (${vb.dataset.val}) with ${dmg.dataset.val} damage level. Final pricing confirmed after workshop inspection.`;
+  const finishName = cq ? cq.querySelector('h3').textContent : 'Standard';
+  const desc = `Estimated for a ${vt.dataset.val.toUpperCase()} (${vb.dataset.val.toUpperCase()}) with ${dmg.dataset.val} damage level & ${finishName}. Final pricing confirmed after workshop inspection.`;
   document.getElementById('resultDesc').textContent = desc;
 
   const breakdown = document.getElementById('resultBreakdown');
   breakdown.innerHTML = '';
-  [
+  const items = [
     `🚗 ${vt.dataset.val.charAt(0).toUpperCase()+vt.dataset.val.slice(1)}`,
     `🏷️ ${vb.dataset.val.charAt(0).toUpperCase()+vb.dataset.val.slice(1)}`,
     `⚠️ ${dmg.dataset.val.charAt(0).toUpperCase()+dmg.dataset.val.slice(1)} damage`,
-    `🎨 ${svcs.length} service${svcs.length>1?'s':''} selected`
-  ].forEach(t=>{
+    `🎨 ${svcs.length} service${svcs.length>1?'s':''} selected`,
+    `✨ ${finishName}`
+  ];
+
+  const files = document.getElementById('fileInput').files;
+  if(files && files.length > 0) {
+    items.push(`📸 ${files.length} Photo${files.length>1?'s':''} Selected`);
+  }
+
+  items.forEach(t=>{
     const el = document.createElement('div');
     el.className = 'breakdown-item'; el.textContent = t;
     breakdown.appendChild(el);
@@ -748,49 +773,44 @@ function sendWhatsApp(){
   const vb = getSelected('vehicleBrand','.brand-pill');
   const svcs = getSelectedMulti('serviceType');
   const dmg = getSelected('damageLevel','.damage-card');
+  const cq = document.querySelector('#colorQualitySection .option-card.selected');
   const range = document.getElementById('resultRange').textContent;
   const notes = document.getElementById('additionalNotes').value;
+  const files = document.getElementById('fileInput').files;
 
-  let msg = `🚗 *SSPW – New Quote Request*\n\n`;
-  msg += `*Vehicle:* ${vt?.dataset.val||'—'} (${vb?.dataset.val||'—'})\n`;
+  const finishName = cq ? cq.querySelector('h3').textContent : 'Standard Gloss';
+
+  let msg = `🚗 *SSPW – New Cost Estimate & Quote Request*\n\n`;
+  msg += `*Vehicle:* ${vt ? vt.dataset.val.toUpperCase() : '—'} (${vb ? vb.dataset.val.toUpperCase() : '—'})\n`;
   msg += `*Services:* ${svcs.map(s=>s.querySelector('.svc-name').textContent).join(', ')}\n`;
-  msg += `*Damage Level:* ${dmg?.dataset.val||'—'}\n`;
+  msg += `*Damage Level:* ${dmg ? dmg.dataset.val.charAt(0).toUpperCase()+dmg.dataset.val.slice(1) : '—'}\n`;
+  msg += `*Paint Finish:* ${finishName}\n`;
   msg += `*Estimated Range:* ${range}\n`;
-  if(notes) msg += `\n*Notes:* ${notes}`;
-  msg += `\n\nPlease confirm my booking. Thank you!`;
+  if(files && files.length > 0) {
+    msg += `*Vehicle Photos:* ${files.length} photo(s) selected (attaching below in chat)\n`;
+  }
+  if(notes && notes.trim()) {
+    msg += `*Notes:* ${notes.trim()}\n`;
+  }
+  msg += `\nPlease confirm workshop inspection and slot availability. Thank you!`;
 
   window.open(`https://wa.me/917816036366?text=${encodeURIComponent(msg)}`,'_blank');
 }
 
 function resetForm(){
   document.querySelectorAll('.pill,.brand-pill,.damage-card,.service-pill').forEach(x=>x.classList.remove('selected'));
+  document.querySelectorAll('#colorQualitySection .option-card').forEach((c,i)=>{
+    c.classList.toggle('selected', i===0);
+  });
+  document.getElementById('fileInput').value = '';
   document.getElementById('uploadPreview').innerHTML = '';
   document.getElementById('additionalNotes').value = '';
   document.getElementById('resultBox').classList.remove('show');
-  document.getElementById('uploadTitle').textContent = 'Tap to Upload Photos';
+  document.getElementById('uploadTitle').textContent = 'Tap to Upload Vehicle Photos';
   document.getElementById('uploadSub').textContent = 'JPG, PNG, WEBP supported · Up to 5 photos';
   document.getElementById('uploadIcon').textContent = '📸';
   window.scrollTo({top:0,behavior:'smooth'});
 }
-// Color Quality Selection
-let selectedColorQuality = null;
-
-document.querySelectorAll('#colorQualitySection .option-card').forEach(card => {
-  card.addEventListener('click', () => {
-    // Remove 'selected' from all cards in this section
-    document.querySelectorAll('#colorQualitySection .option-card').forEach(c => {
-      c.classList.remove('selected');
-    });
-
-    // Add 'selected' to clicked card
-    card.classList.add('selected');
-
-    // Store the value (using data attribute)
-    selectedColorQuality = card.dataset.value;
-
-    console.log('Selected Color Quality:', selectedColorQuality);
-  });
-});
 </script>
 </body>
 </html>

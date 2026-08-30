@@ -2473,7 +2473,7 @@
             id="quoteForm"
             class="contact-form"
             onsubmit="handleContactForm(event)"
-            action="/submit-quote"
+            action="javascript:void(0)"
             method="POST"
           >
             <div class="form-group">
@@ -2753,5 +2753,40 @@
         startAutoPlay();
       })();
     </script>
+  
+    <script>
+      function handleContactForm(event) {
+        event.preventDefault();
+        const form = event.target;
+        
+        const name = form.querySelector('[name="name"]')?.value?.trim() || 'Customer';
+        const phone = form.querySelector('[name="phone"]')?.value?.trim() || 'Not provided';
+        const service = form.querySelector('[name="service"]')?.value?.trim() || 'General Inquiry';
+        const vehicle = form.querySelector('[name="vehicle"]')?.value?.trim() || 'Not specified';
+        const message = form.querySelector('[name="message"]')?.value?.trim() || 'Please provide an estimate.';
+
+        const waText = 
+`*🚗 NEW QUOTE REQUEST — SRI SAI PAINT WORKS (SSPW)*
+
+👤 *Customer Name:* ${name}
+📞 *Phone Number:* ${phone}
+🎨 *Service Needed:* ${service}
+🚙 *Vehicle Model:* ${vehicle}
+💬 *Message/Notes:* ${message}
+
+📍 *Location:* SSPW Workshop, Kothagudem`;
+
+        const encoded = encodeURIComponent(waText);
+        const waUrl = "https://wa.me/918179727255?text=" + encoded;
+
+        // Reset form
+        form.reset();
+
+        // Redirect directly to WhatsApp
+        window.open(waUrl, "_blank") || (window.location.href = waUrl);
+        return false;
+      }
+    </script>
+
   </body>
 </html>

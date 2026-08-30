@@ -1,42 +1,29 @@
 function handleContactForm(event) {
-    // 1. CRITICAL: This stops the browser from reloading to the white screen
-    event.preventDefault();
+    if (event) event.preventDefault();
+    const form = event ? event.target : document.getElementById('quoteForm');
+    
+    const name = form.querySelector('[name="name"]')?.value?.trim() || 'Customer';
+    const phone = form.querySelector('[name="phone"]')?.value?.trim() || 'Not provided';
+    const service = form.querySelector('[name="service"]')?.value?.trim() || 'General Inquiry';
+    const vehicle = form.querySelector('[name="vehicle"]')?.value?.trim() || 'Not specified';
+    const message = form.querySelector('[name="message"]')?.value?.trim() || 'Please provide an estimate.';
 
-    const form = event.target;
-    const submitButton = form.querySelector('button[type="submit"]');
-    const originalButtonText = submitButton.innerText;
+    const waText = 
+`*🚗 NEW QUOTE REQUEST — SRI SAI PAINT WORKS (SSPW)*
 
-    // 2. Change button text to show it's working
-    submitButton.innerText = "SENDING...";
-    submitButton.disabled = true;
+👤 *Customer Name:* ${name}
+📞 *Phone Number:* ${phone}
+🎨 *Service Needed:* ${service}
+🚙 *Vehicle Model:* ${vehicle}
+💬 *Message/Notes:* ${message}
 
-    // 3. Package up all the form data
-    const formData = new FormData(form);
+📍 *Location:* SSPW Workshop, Kothagudem`;
 
-    // 4. Send the data to your Render backend silently
-    fetch('https://sspw-ai-1.onrender.com/submit-quote', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json()) 
-    .then(data => {
-        // 5. Check for the exact "success" variable Python sends back
-        if (data.success === true) {
-            // Show a nice popup alert
-            alert("Success! Your quote request has been sent to SSPW.");
-            // Clear the form fields so it's fresh
-            form.reset(); 
-        } else {
-            alert("Oops! Something went wrong: " + (data.error || "Please try again."));
-        }
-    })
-    .catch(error => {
-        console.error("Fetch error:", error);
-        alert("Network error. Please make sure you are connected to the internet.");
-    })
-    .finally(() => {
-        // 6. Always turn the button back on, whether it succeeded or failed
-        submitButton.innerText = originalButtonText;
-        submitButton.disabled = false;
-    });
+    const encoded = encodeURIComponent(waText);
+    const waUrl = "https://wa.me/918179727255?text=" + encoded;
+
+    if (form) form.reset();
+
+    window.open(waUrl, "_blank") || (window.location.href = waUrl);
+    return false;
 }

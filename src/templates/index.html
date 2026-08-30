@@ -701,20 +701,37 @@
       }
       .gallery-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 16px;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 20px;
         max-width: 1200px;
         margin: 0 auto;
       }
       .gallery-item {
         position: relative;
-        aspect-ratio: 4/3;
+        aspect-ratio: 4 / 3;
+        height: 220px;
         border-radius: 8px;
         overflow: hidden;
         border: 1px solid rgba(211, 47, 47, 0.2);
         cursor: pointer;
         transition: all 0.3s;
         background: #111;
+      }
+      .gallery-tag {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: rgba(0, 0, 0, 0.75);
+        border: 1px solid rgba(211, 47, 47, 0.5);
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        z-index: 3;
+        backdrop-filter: blur(4px);
       }
       .gallery-item:hover {
         transform: scale(1.02);
@@ -1421,7 +1438,7 @@
             >⚡ Get Cost Estimate</a
           >
           <a
-            href="https://wa.me/917816036366"
+            href="https://wa.me/918179727255"
             target="_blank"
             class="btn-secondary"
           >
@@ -1483,8 +1500,7 @@
                   <span class="compare-badge badge-before">Before Repair</span>
                   <img
                     src="{{ url_for('static', filename='images/alto_before.jpg') }}"
-                    alt="Maruti Alto Scratched Before Painting"
-                  />
+                    alt="Maruti Alto Scratched Before Painting" loading="lazy" />
                 </div>
                 <div class="compare-box">
                   <span class="compare-badge badge-after"
@@ -1492,8 +1508,7 @@
                   >
                   <img
                     src="{{ url_for('static', filename='images/alto_after.jpg') }}"
-                    alt="Maruti Alto Restored Full Body Repaint"
-                  />
+                    alt="Maruti Alto Restored Full Body Repaint" loading="lazy" />
                 </div>
               </div>
               <div class="slide-info">
@@ -1520,8 +1535,7 @@
                   >
                   <img
                     src="{{ url_for('static', filename='images/santro_before.jpg') }}"
-                    alt="Hyundai Santro Sun Damaged Bonnet"
-                  />
+                    alt="Hyundai Santro Sun Damaged Bonnet" loading="lazy" />
                 </div>
                 <div class="compare-box">
                   <span class="compare-badge badge-after"
@@ -1529,8 +1543,7 @@
                   >
                   <img
                     src="{{ url_for('static', filename='images/santro_after.jpg') }}"
-                    alt="Hyundai Santro Restored Front Panel"
-                  />
+                    alt="Hyundai Santro Restored Front Panel" loading="lazy" />
                 </div>
               </div>
               <div class="slide-info">
@@ -1562,8 +1575,7 @@
                   >
                   <img
                     src="{{ url_for('static', filename='images/dzire_before.jpg') }}"
-                    alt="Maruti Dzire Wheel Arch Dent Before"
-                  />
+                    alt="Maruti Dzire Wheel Arch Dent Before" loading="lazy" />
                 </div>
                 <div class="compare-box">
                   <span class="compare-badge badge-after"
@@ -1571,8 +1583,7 @@
                   >
                   <img
                     src="{{ url_for('static', filename='images/dzire_after.jpg') }}"
-                    alt="Maruti Dzire After Seamless Repaint"
-                  />
+                    alt="Maruti Dzire After Seamless Repaint" loading="lazy" />
                 </div>
               </div>
               <div class="slide-info">
@@ -1604,8 +1615,7 @@
                   >
                   <img
                     src="{{ url_for('static', filename='images/bus_before.jpg') }}"
-                    alt="TSRTC Commercial Bus Before Bodywork"
-                  />
+                    alt="TSRTC Commercial Bus Before Bodywork" loading="lazy" />
                 </div>
                 <div class="compare-box">
                   <span class="compare-badge badge-after"
@@ -1613,8 +1623,7 @@
                   >
                   <img
                     src="{{ url_for('static', filename='images/bus_after.jpg') }}"
-                    alt="TSRTC Bus Restored Commercial Finish"
-                  />
+                    alt="TSRTC Bus Restored Commercial Finish" loading="lazy" />
                 </div>
               </div>
               <div class="slide-info">
@@ -1643,8 +1652,7 @@
                   >
                   <img
                     src="{{ url_for('static', filename='images/tata_punch_putty.jpg') }}"
-                    alt="Tata SUV Body Filler Shaping"
-                  />
+                    alt="Tata SUV Body Filler Shaping" loading="lazy" />
                 </div>
                 <div class="compare-box">
                   <span class="compare-badge badge-after"
@@ -1652,8 +1660,7 @@
                   >
                   <img
                     src="{{ url_for('static', filename='images/tata_punch_primer.jpg') }}"
-                    alt="Tata SUV Primed Panel Sealing"
-                  />
+                    alt="Tata SUV Primed Panel Sealing" loading="lazy" />
                 </div>
               </div>
               <div class="slide-info">
@@ -1831,76 +1838,204 @@
       <div class="section-label">Our Work</div>
       <h2 class="section-title">Work Gallery</h2>
       <p class="section-sub">
-        A glimpse of real vehicle restorations and precision spray painting from
-        our workshop
+        A glimpse of real vehicle transformations and precision spray painting
+        from our workshop in Kothagudem
       </p>
       <div class="gallery-grid reveal">
-        <div class="gallery-item" style="grid-column: span 2">
-          <div class="gallery-thumb">
-            <img
-              src="{{ url_for('static', filename='images/alto_after.jpg') }}"
-              alt="Maruti Alto Full Body Painting"
-            />
-          </div>
-          <div class="gallery-overlay">
-            <span>Maruti Alto – Full Body Metallic Red Gloss</span
-            ><small>Full Body Repaint · Kothagudem</small>
-          </div>
-        </div>
+        <!-- 1. MARUTI ERTIGA GROUP (All in one place: Before -> Prep -> After) -->
+        <!-- 1. Ertiga Sun Faded Bonnet (Before) -->
         <div class="gallery-item">
+          <span class="gallery-tag">Before · Sun Faded</span>
           <div class="gallery-thumb">
             <img
-              src="{{ url_for('static', filename='images/santro_after.jpg') }}"
-              alt="Hyundai Santro Restored Bonnet"
+              src="{{ url_for('static', filename='temp/maruti-ertiga-bonnet-faded-before.jpeg') }}"
+              alt="Maruti Ertiga Sun Oxidation and Clear Coat Peeling Before"
+              loading="lazy"
             />
           </div>
           <div class="gallery-overlay">
-            <span>Hyundai Santro – Bonnet & Front Panel Repaint</span
-            ><small>Factory Colour Match · Bhadradri</small>
+            <span>Maruti Ertiga – Faded Bonnet (Before)</span>
+            <small>Clear Coat Damage · Kothagudem</small>
           </div>
         </div>
+
+        <!-- 2. Ertiga Masking Prep -->
         <div class="gallery-item">
+          <span class="gallery-tag">In Progress · Masking</span>
           <div class="gallery-thumb">
             <img
-              src="{{ url_for('static', filename='images/tata_punch_putty.jpg') }}"
-              alt="Tata SUV Bodywork Putty Preparation"
+              src="{{ url_for('static', filename='temp/maruti-ertiga-masking-prep.jpeg') }}"
+              alt="Maruti Ertiga Full Body Masking & Primer Prep"
+              loading="lazy"
             />
           </div>
           <div class="gallery-overlay">
-            <span>Tata Punch SUV – Dent & Putty Surface Prep</span
-            ><small>Precision Panel Leveling · Workshop</small>
+            <span>Maruti Ertiga – Full Masking & Primer Prep</span>
+            <small>Surface Preparation · Workshop</small>
           </div>
         </div>
+
+        <!-- 3. Ertiga Restored (After) -->
         <div class="gallery-item">
+          <span class="gallery-tag">After · Restored</span>
           <div class="gallery-thumb">
             <img
-              src="{{ url_for('static', filename='images/tata_punch_primer.jpg') }}"
-              alt="Tata SUV Primer Application"
-            />
-          </div>
-        </div>
-        <div class="gallery-item" style="grid-column: span 2">
-          <div class="gallery-thumb">
-            <img
-              src="{{ url_for('static', filename='images/bus_after.jpg') }}"
-              alt="TSRTC Bus Commercial Repaint"
+              src="{{ url_for('static', filename='temp/maruti-ertiga-white-restored-after.jpeg') }}"
+              alt="Maruti Suzuki Ertiga Restored Front Bonnet & Bumper"
+              loading="lazy"
             />
           </div>
           <div class="gallery-overlay">
-            <span>TSRTC Bus – Commercial Fleet Restoration</span
-            ><small>Polyurethane Heavy Finish · Kothagudem</small>
+            <span>Maruti Ertiga – Full Front Restored</span>
+            <small>Factory White Clear Coat · Bhadradri</small>
           </div>
         </div>
+
+        <!-- 2. HYUNDAI i20 GROUP (All in one place: Before -> Booth -> After) -->
+        <!-- 4. Hyundai i20 Scratch Damage (Before) -->
         <div class="gallery-item">
+          <span class="gallery-tag">Before · Scratch</span>
           <div class="gallery-thumb">
             <img
-              src="{{ url_for('static', filename='images/dzire_after.jpg') }}"
-              alt="Maruti Dzire Scratch & Dent Repair"
+              src="{{ url_for('static', filename='temp/hyundai-i20-door-scratch-before.jpeg') }}"
+              alt="Hyundai i20 Door Scratch Damage Before Repair"
+              loading="lazy"
             />
           </div>
           <div class="gallery-overlay">
-            <span>Maruti Dzire – Scratch Repair & Paint Blending</span
-            ><small>Seamless Panel Match · Khammam</small>
+            <span>Hyundai i20 – Deep Scratches (Before)</span>
+            <small>Damage Assessment · Kothagudem</small>
+          </div>
+        </div>
+
+        <!-- 5. Hyundai i20 Spray Booth Paint -->
+        <div class="gallery-item">
+          <span class="gallery-tag">In Booth · Paint</span>
+          <div class="gallery-thumb">
+            <img
+              src="{{ url_for('static', filename='temp/hyundai-i20-spray-booth-paint.jpeg') }}"
+              alt="Hyundai i20 Precision Spray Booth Application"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-overlay">
+            <span>Hyundai i20 – Spray Booth Application</span>
+            <small>Precision Oven Baking · Kothagudem</small>
+          </div>
+        </div>
+
+        <!-- 6. Hyundai i20 Showroom Finish (After) -->
+        <div class="gallery-item">
+          <span class="gallery-tag">After · Showroom Finish</span>
+          <div class="gallery-thumb">
+            <img
+              src="{{ url_for('static', filename='temp/hyundai-i20-red-showroom-after.jpeg') }}"
+              alt="Hyundai i20 Red Metallic Full Body Gloss"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-overlay">
+            <span>Hyundai i20 – Red Metallic Showroom Repaint</span>
+            <small>Full Body Gloss · Kothagudem</small>
+          </div>
+        </div>
+
+        <!-- 3. TATA SIERRA SUV GROUP (All in one place: Before -> Putty Prep) -->
+        <!-- 7. Sierra SUV Fender Dent (Before) -->
+        <div class="gallery-item">
+          <span class="gallery-tag">Before · Dent</span>
+          <div class="gallery-thumb">
+            <img
+              src="{{ url_for('static', filename='temp/tata-sierra-fender-dent-before.jpeg') }}"
+              alt="Sierra SUV Metal Dent Grinding Before Repair"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-overlay">
+            <span>Sierra SUV – Dent & Metal Grinding (Before)</span>
+            <small>Dent Repair · Workshop</small>
+          </div>
+        </div>
+
+        <!-- 8. Sierra SUV Body Putty (Prep) -->
+        <div class="gallery-item">
+          <span class="gallery-tag">In Progress · Putty</span>
+          <div class="gallery-thumb">
+            <img
+              src="{{ url_for('static', filename='temp/tata-sierra-fender-putty-prep.jpeg') }}"
+              alt="Sierra SUV Body Filler & Putty Shaping"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-overlay">
+            <span>Sierra SUV – Putty & Panel Shaping</span>
+            <small>Precision Panel Leveling · Workshop</small>
+          </div>
+        </div>
+
+        <!-- 4. ASHOK LEYLAND TRUCK GROUP (All in one place: Before -> After) -->
+        <!-- 9. Ashok Leyland Truck Prep (Before) -->
+        <div class="gallery-item">
+          <span class="gallery-tag">Before · Prep</span>
+          <div class="gallery-thumb">
+            <img
+              src="{{ url_for('static', filename='temp/ashok-leyland-truck-prep-before.jpeg') }}"
+              alt="Ashok Leyland Truck Masking and Body Prep Before Paint"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-overlay">
+            <span>Ashok Leyland – Sanding & Masking (Before)</span>
+            <small>Heavy Commercial Prep · Kothagudem</small>
+          </div>
+        </div>
+
+        <!-- 10. Ashok Leyland Truck Painted (After) -->
+        <div class="gallery-item">
+          <span class="gallery-tag">After · Painted</span>
+          <div class="gallery-thumb">
+            <img
+              src="{{ url_for('static', filename='temp/ashok-leyland-truck-yellow-after.jpeg') }}"
+              alt="Ashok Leyland Tipper Truck High-Gloss Yellow"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-overlay">
+            <span>Ashok Leyland – High-Gloss Yellow (After)</span>
+            <small>Commercial Polyurethane Finish · Kothagudem</small>
+          </div>
+        </div>
+
+        <!-- 5. TSRTC COMMERCIAL BUS GROUP (Before -> After) -->
+        <!-- 11. TSRTC Bus Bodywork (Before) -->
+        <div class="gallery-item">
+          <span class="gallery-tag">Before · Fleet Prep</span>
+          <div class="gallery-thumb">
+            <img
+              src="{{ url_for('static', filename='temp/tsrtc-bus-bodywork-before.jpeg') }}"
+              alt="TSRTC Bus Sheet Metal & Body Putty Prep Before Paint"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-overlay">
+            <span>TSRTC Bus – Metal Patch & Putty Prep (Before)</span>
+            <small>Commercial Fleet Repair · Kothagudem</small>
+          </div>
+        </div>
+
+        <!-- 12. TSRTC Bus Restored (After) -->
+        <div class="gallery-item">
+          <span class="gallery-tag">After · Fleet Restored</span>
+          <div class="gallery-thumb">
+            <img
+              src="{{ url_for('static', filename='temp/tsrtc-bus-restored-after.jpeg') }}"
+              alt="TSRTC Palle Velugu Bus Full Livery Repaint"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-overlay">
+            <span>TSRTC Palle Velugu – Full Livery Repaint (After)</span>
+            <small>Dual-Tone Commercial Finish · Kothagudem</small>
           </div>
         </div>
       </div>
@@ -1914,125 +2049,156 @@
         Real vehicles, real damage, real results from our workshop in Kothagudem
       </p>
       <div class="featured-grid reveal">
-        <!-- Card 1: Maruti Alto -->
+        <!-- Card 1: Hyundai i20 -->
         <div class="featured-card">
           <div class="featured-images">
             <div class="featured-img before">
               <img
-                src="{{ url_for('static', filename='images/alto_before.jpg') }}"
-                alt="Maruti Alto Before Repair"
+                src="{{ url_for('static', filename='temp/hyundai-i20-door-scratch-before.jpeg') }}"
+                alt="Hyundai i20 Before Repair"
+                loading="lazy"
               />
               <div class="featured-img-label" style="color: #aaa">Before</div>
             </div>
             <div class="featured-img after">
               <img
-                src="{{ url_for('static', filename='images/alto_after.jpg') }}"
-                alt="Maruti Alto After Repaint"
+                src="{{ url_for('static', filename='temp/hyundai-i20-red-showroom-after.jpeg') }}"
+                alt="Hyundai i20 After Repaint"
+                loading="lazy"
               />
               <div class="featured-img-label" style="color: #ef4444">After</div>
             </div>
           </div>
           <div class="featured-info">
-            <h3>Maruti Alto – Full Body Repaint & Scratch Repair</h3>
+            <h3>Hyundai i20 – Deep Scratch Repair & Full Side Gloss</h3>
             <p>
-              Multiple deep body scratches, door scrapes, and exposed primer.
-              Fully sanded, dent-leveled, and repainted in showroom-grade
-              metallic red with UV-clear coat.
+              Heavy side door abrasions and paint gouges sanded, primer-sealed,
+              and refinished with ultra-gloss metallic red clear coat in our
+              paint booth.
             </p>
-            <span class="satisfaction-badge"
-              >⭐ 100% Satisfied · Kothagudem</span
-            >
+            <span class="satisfaction-badge">⭐ 100% Satisfied · Kothagudem</span>
           </div>
         </div>
 
-        <!-- Card 2: Hyundai Santro -->
+        <!-- Card 2: Maruti Ertiga -->
         <div class="featured-card">
           <div class="featured-images">
             <div class="featured-img before">
               <img
-                src="{{ url_for('static', filename='images/santro_before.jpg') }}"
-                alt="Hyundai Santro Before Paint"
+                src="{{ url_for('static', filename='temp/maruti-ertiga-bonnet-faded-before.jpeg') }}"
+                alt="Maruti Ertiga Before Paint"
+                loading="lazy"
               />
               <div class="featured-img-label" style="color: #aaa">Before</div>
             </div>
             <div class="featured-img after">
               <img
-                src="{{ url_for('static', filename='images/santro_after.jpg') }}"
-                alt="Hyundai Santro After Restored Paint"
+                src="{{ url_for('static', filename='temp/maruti-ertiga-white-restored-after.jpeg') }}"
+                alt="Maruti Ertiga After Restored Paint"
+                loading="lazy"
               />
               <div class="featured-img-label" style="color: #ef4444">After</div>
             </div>
           </div>
           <div class="featured-info">
-            <h3>Hyundai Santro – Bonnet Clear-Coat Peeling Restoration</h3>
+            <h3>Maruti Ertiga – Sun Oxidation & Bonnet Restoration</h3>
             <p>
-              Severe sun oxidation and peeled clear-coat across the bonnet and
-              front bumper. Stripped to bare primer and recoated with seamless
-              factory color matching.
+              Severely peeled clear coat and sun-damaged bonnet stripped,
+              primed, and repainted to a brilliant OEM white showroom shine.
             </p>
-            <span class="satisfaction-badge"
-              >⭐ 100% Satisfied · Bhadradri</span
-            >
+            <span class="satisfaction-badge">⭐ 100% Satisfied · Bhadradri</span>
           </div>
         </div>
 
-        <!-- Card 3: Maruti Dzire -->
+        <!-- Card 3: Tata Sierra SUV -->
         <div class="featured-card">
           <div class="featured-images">
             <div class="featured-img before">
               <img
-                src="{{ url_for('static', filename='images/dzire_before.jpg') }}"
-                alt="Maruti Dzire Before Dent Repair"
+                src="{{ url_for('static', filename='temp/tata-sierra-fender-dent-before.jpeg') }}"
+                alt="Sierra SUV Before Dent Repair"
+                loading="lazy"
               />
               <div class="featured-img-label" style="color: #aaa">Before</div>
             </div>
             <div class="featured-img after">
               <img
-                src="{{ url_for('static', filename='images/dzire_after.jpg') }}"
-                alt="Maruti Dzire After Paint Blending"
+                src="{{ url_for('static', filename='temp/tata-sierra-fender-putty-prep.jpeg') }}"
+                alt="Sierra SUV After Putty Shaping"
+                loading="lazy"
+              />
+              <div class="featured-img-label" style="color: #ef4444">Putty Prep</div>
+            </div>
+          </div>
+          <div class="featured-info">
+            <h3>Sierra SUV – Fender Dent Pull & Putty Shaping</h3>
+            <p>
+              Front fender impact dent pulled, ground to bare metal, and
+              precision contoured with high-grade body filler for seamless panel
+              alignment.
+            </p>
+            <span class="satisfaction-badge">⭐ 100% Satisfied · Kothagudem</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Ashok Leyland Commercial Truck -->
+        <div class="featured-card">
+          <div class="featured-images">
+            <div class="featured-img before">
+              <img
+                src="{{ url_for('static', filename='temp/ashok-leyland-truck-prep-before.jpeg') }}"
+                alt="Ashok Leyland Truck Before Paint"
+                loading="lazy"
+              />
+              <div class="featured-img-label" style="color: #aaa">Before</div>
+            </div>
+            <div class="featured-img after">
+              <img
+                src="{{ url_for('static', filename='temp/ashok-leyland-truck-yellow-after.jpeg') }}"
+                alt="Ashok Leyland Truck After Yellow Repaint"
+                loading="lazy"
               />
               <div class="featured-img-label" style="color: #ef4444">After</div>
             </div>
           </div>
           <div class="featured-info">
-            <h3>Maruti Dzire – Rear Quarter Dent & Panel Painting</h3>
+            <h3>Ashok Leyland Tipper Truck – Commercial Overhaul</h3>
             <p>
-              Heavy wheel arch dent and door collision scrapes. Precision metal
-              pull, body filler shaping, and seamless metallic paint blending
-              with zero edge marks.
+              Heavy vehicle surface sanding, rust neutralization, protective
+              masking, and heavy-duty high-gloss industrial yellow polyurethane
+              coating.
             </p>
-            <span class="satisfaction-badge">⭐ 100% Satisfied · Khammam</span>
+            <span class="satisfaction-badge">⭐ 100% Satisfied · Kothagudem Depot</span>
           </div>
         </div>
 
-        <!-- Card 4: TSRTC Bus -->
+        <!-- Card 5: TSRTC Bus -->
         <div class="featured-card">
           <div class="featured-images">
             <div class="featured-img before">
               <img
-                src="{{ url_for('static', filename='images/bus_before.jpg') }}"
+                src="{{ url_for('static', filename='temp/tsrtc-bus-bodywork-before.jpeg') }}"
                 alt="TSRTC Bus Before Bodywork"
+                loading="lazy"
               />
               <div class="featured-img-label" style="color: #aaa">Before</div>
             </div>
             <div class="featured-img after">
               <img
-                src="{{ url_for('static', filename='images/bus_after.jpg') }}"
-                alt="TSRTC Bus After Commercial Painting"
+                src="{{ url_for('static', filename='temp/tsrtc-bus-restored-after.jpeg') }}"
+                alt="TSRTC Bus After Livery Repaint"
+                loading="lazy"
               />
               <div class="featured-img-label" style="color: #ef4444">After</div>
             </div>
           </div>
           <div class="featured-info">
-            <h3>TSRTC Palle Velugu – Commercial Fleet Repaint</h3>
+            <h3>TSRTC Palle Velugu – Commercial Fleet Restoration</h3>
             <p>
-              Full corner panel reinforcement, surface rust treatment, and
-              commercial-grade multi-layer polyurethane dual-tone spray
-              painting.
+              Rear corner metal patch fabrication, surface rust treatment, and
+              commercial-grade dual-tone polyurethane livery spray painting.
             </p>
-            <span class="satisfaction-badge"
-              >⭐ 100% Satisfied · Kothagudem Depot</span
-            >
+            <span class="satisfaction-badge">⭐ 100% Satisfied · Kothagudem Depot</span>
           </div>
         </div>
       </div>
@@ -2041,9 +2207,7 @@
     <!-- ESTIMATE CTA -->
     <section id="estimate-cta">
       <div class="estimate-box reveal">
-        <div class="section-label" style="margin-bottom: 8px">
-          Free Estimate
-        </div>
+        <div class="section-label" style="margin-bottom: 8px">Free Estimate</div>
         <h2>What Will Your Repaint Cost?</h2>
         <p>
           Use our instant cost estimator — select your vehicle, service, and
@@ -2095,8 +2259,7 @@
             <div class="reviewer-avatar">
               <img
                 src="{{ url_for('static', filename='images/alto_after.jpg') }}"
-                alt="Maruti Alto Customer"
-              />
+                alt="Maruti Alto Customer" loading="lazy" />
             </div>
             <div>
               <div class="reviewer-name">Ravi Kumar</div>
@@ -2117,8 +2280,7 @@
             <div class="reviewer-avatar">
               <img
                 src="{{ url_for('static', filename='images/dzire_after.jpg') }}"
-                alt="Maruti Dzire Customer"
-              />
+                alt="Maruti Dzire Customer" loading="lazy" />
             </div>
             <div>
               <div class="reviewer-name">Suresh Prasad</div>
@@ -2141,8 +2303,7 @@
             <div class="reviewer-avatar">
               <img
                 src="{{ url_for('static', filename='images/tata_punch_primer.jpg') }}"
-                alt="Tata SUV Customer"
-              />
+                alt="Tata SUV Customer" loading="lazy" />
             </div>
             <div>
               <div class="reviewer-name">Lakshmi Narayana</div>
@@ -2163,8 +2324,7 @@
             <div class="reviewer-avatar">
               <img
                 src="{{ url_for('static', filename='images/santro_after.jpg') }}"
-                alt="Hyundai Santro Customer"
-              />
+                alt="Hyundai Santro Customer" loading="lazy" />
             </div>
             <div>
               <div class="reviewer-name">Arun Mohan</div>
@@ -2187,8 +2347,7 @@
             <div class="reviewer-avatar">
               <img
                 src="{{ url_for('static', filename='images/bus_after.jpg') }}"
-                alt="Commercial Fleet Customer"
-              />
+                alt="Commercial Fleet Customer" loading="lazy" />
             </div>
             <div>
               <div class="reviewer-name">Venkata Rao B</div>
@@ -2216,14 +2375,14 @@
             <div class="contact-icon">📞</div>
             <div class="contact-detail-text">
               <h4>Phone</h4>
-              <a href="tel:+917816036366">+91 78160 36366</a>
+              <a href="tel:+91 81797 27255">+91 81797 27255</a>
             </div>
           </div>
           <div class="contact-detail">
             <div class="contact-icon">💬</div>
             <div class="contact-detail-text">
               <h4>WhatsApp</h4>
-              <a href="https://wa.me/917816036366" target="_blank"
+              <a href="https://wa.me/918179727255" target="_blank"
                 >Chat with us instantly</a
               >
             </div>
@@ -2336,12 +2495,12 @@
           </p>
           <div class="footer-social">
             <a
-              href="https://wa.me/917816036366"
+              href="https://wa.me/918179727255"
               class="social-btn"
               target="_blank"
               >💬</a
             >
-            <a href="tel:+917816036366" class="social-btn">📞</a>
+            <a href="tel:+91 81797 27255" class="social-btn">📞</a>
             <a href="#contact" class="social-btn">✉️</a>
           </div>
         </div>
@@ -2375,9 +2534,9 @@
             <span class="icon">📞</span>
             <p>
               <a
-                href="tel:+917816036366"
+                href="tel:+91 81797 27255"
                 style="color: var(--silver-light); text-decoration: none"
-                >+91 78160 36366</a
+                >+91 81797 27255</a
               >
             </p>
           </div>
@@ -2403,13 +2562,13 @@
 
     <!-- FLOATING BUTTONS -->
     <a
-      href="https://wa.me/917816036366"
+      href="https://wa.me/918179727255"
       class="float-wa"
       target="_blank"
       title="WhatsApp Us"
       >💬</a
     >
-    <a href="tel:+917816036366" class="float-call" title="Call Now">📞</a>
+    <a href="tel:+91 81797 27255" class="float-call" title="Call Now">📞</a>
     <script src="/static/script.js"></script>
 
     <script>

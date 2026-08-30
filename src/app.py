@@ -28,25 +28,57 @@ DB_URL = os.environ.get("DATABASE_URL")
 def home():
     return render_template('index.html')
 
-# 4. Add the @basic_auth.required padlock to this specific route!
 @app.route('/admin')
 @basic_auth.required
 def admin_dashboard():
-    # ... the rest of your database connection code stays exactly the same ...
-    # 1. Open a fresh connection for this specific page load
-    conn = psycopg2.connect(DB_URL)
-    cursor = conn.cursor()
+    all_inquiries = []
+    error_message = None
     
-    try:
-        # 2. Query the CORRECT table and sort by the CORRECT column
-        cursor.execute("SELECT * FROM quotes ORDER BY id DESC")
-        all_inquiries = cursor.fetchall()
-    finally:
-        # 3. CRITICAL: Always close the doors you open to prevent server crashes
-        cursor.close()
-        conn.close()
+    if not DB_URL:
+        error_message = "DATABASE_URL is not set. Please add your Supabase/PostgreSQL connection string to your Vercel / Render Environment Variables."
+    else:
+        conn = None
+        cursor = None
+        try:
+            conn = psycopg2.connect(DB_URL)
+            cursor = conn.cursor()
+            # Ensure table exists so it doesn't fail on fresh databases
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS quotes (
+                    id SERIAL PRIMARY KEY,
+                    name TEXT,
+                    phone TEXT,
+                    service TEXT,
+                    vehicle TEXT,
+                    message TEXT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
+            """)
+            conn.commit()
+            
+            cursor.execute("""
+                SELECT 
+                    id, 
+                    COALESCE(name, 'N/A'), 
+                    COALESCE(phone, 'N/A'), 
+                    COALESCE(service, 'General Inquiry'), 
+                    COALESCE(vehicle, 'N/A'), 
+                    COALESCE(message, '-'), 
+                    COALESCE(to_char(created_at, 'DD Mon YYYY, HH:MI AM'), 'Recent')
+                FROM quotes 
+                ORDER BY id DESC
+            """)
+            all_inquiries = cursor.fetchall()
+        except Exception as e:
+            print(f"Database error in admin dashboard: {e}")
+            error_message = f"Database Error: {str(e)}"
+        finally:
+            if cursor:
+                cursor.close()
+            if conn:
+                conn.close()
         
-    return render_template('admin.html', inquiries=all_inquiries)
+    return render_template('admin.html', inquiries=all_inquiries, error_message=error_message)
 
 @app.route('/submit-quote', methods=['POST'])
 def submit_quote():

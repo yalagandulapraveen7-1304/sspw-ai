@@ -3,112 +3,504 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSPW Admin Dashboard</title>
+    <title>SSPW Admin Dashboard — Customer Inquiries</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; margin: 0; }
-        .dashboard-container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        h1 { color: #d32f2f; margin-top: 0; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; table-layout: auto; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; word-break: break-word; }
-        th { background-color: #222; color: white; }
-        tr:hover { background-color: #f1f1f1; }
-        .empty-state { text-align: center; color: #666; padding: 20px; }
+        :root {
+            --red: #d32f2f;
+            --dark-red: #8b0000;
+            --black: #0d0d0d;
+            --card-bg: #161616;
+            --border: rgba(255, 255, 255, 0.1);
+            --text-main: #f0f0f0;
+            --text-muted: #888;
+            --green: #25d366;
+        }
 
-        /* --- MOBILE RESPONSIVE "CARD" LAYOUT --- */
-        @media screen and (max-width: 768px) {
-            body { padding: 10px; }
-            .dashboard-container { padding: 15px; }
-            
-            /* Force table to not behave like a table anymore */
-            table, thead, tbody, th, td, tr { 
-                display: block; 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--black);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+
+        .dashboard-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 24px;
+        }
+
+        .brand-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-title h1 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+
+        .brand-title h1 span {
+            color: var(--red);
+        }
+
+        .badge-live {
+            background: rgba(37, 211, 102, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(37, 211, 102, 0.4);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid var(--border);
+            background: #202020;
+            color: #fff;
+        }
+
+        .btn-action:hover {
+            background: #2a2a2a;
+            border-color: #555;
+        }
+
+        .btn-primary {
+            background: var(--red);
+            border-color: var(--red);
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-red);
+            border-color: var(--dark-red);
+        }
+
+        /* ALERT BANNER */
+        .alert-box {
+            background: rgba(211, 47, 47, 0.15);
+            border: 1px solid rgba(211, 47, 47, 0.5);
+            color: #ff8585;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        /* STATS BAR */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 18px 20px;
+        }
+
+        .stat-card .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .stat-card .number {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* SEARCH BAR */
+        .controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            background: #1c1c1c;
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            width: 100%;
+            max-width: 360px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--red);
+        }
+
+        /* TABLE */
+        .table-wrapper {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background: #111;
+            padding: 14px 18px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: 16px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .customer-name {
+            font-weight: 600;
+            color: #fff;
+            font-size: 0.95rem;
+        }
+
+        .badge-service {
+            display: inline-block;
+            background: rgba(211, 47, 47, 0.15);
+            border: 1px solid rgba(211, 47, 47, 0.4);
+            color: #ff6b6b;
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .badge-vehicle {
+            color: #ccc;
+            font-weight: 500;
+        }
+
+        .customer-phone {
+            font-family: monospace;
+            font-size: 0.95rem;
+            color: #ddd;
+        }
+
+        .lead-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn-wa {
+            background: rgba(37, 211, 102, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(37, 211, 102, 0.4);
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+
+        .btn-wa:hover {
+            background: var(--green);
+            color: #000;
+        }
+
+        .btn-call {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border: 1px solid var(--border);
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+
+        .btn-call:hover {
+            background: #333;
+        }
+
+        .date-text {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-state h3 {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        /* MOBILE RESPONSIVE CARD VIEW */
+        @media (max-width: 860px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
             }
-            
-            /* Hide table headers (but not display: none;, for accessibility) */
-            thead tr { 
+
+            thead tr {
                 position: absolute;
                 top: -9999px;
                 left: -9999px;
             }
-            
-            /* Turn rows into separated cards */
-            tr { 
-                border: 1px solid #ccc; 
-                border-radius: 8px;
-                margin-bottom: 15px; 
-                background: #fff;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            }
-            
-            /* Format individual cells */
-            td { 
-                border: none;
-                border-bottom: 1px solid #eee; 
+
+            tr {
+                border-bottom: 1px solid var(--border);
+                padding: 16px;
                 position: relative;
-                padding-left: 45%; 
-                text-align: right; 
-                min-height: 40px; /* Ensure space for empty fields */
             }
-            
-            td:last-child {
-                border-bottom: none;
+
+            td {
+                border: none;
+                padding: 8px 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                text-align: right;
             }
-            
-            /* Use the data-label attribute to inject the column name on mobile */
-            td:before { 
-                position: absolute;
-                top: 12px;
-                left: 12px;
-                width: 40%; 
-                padding-right: 10px; 
-                white-space: nowrap;
-                text-align: left;
-                font-weight: bold;
-                color: #222;
+
+            td::before {
                 content: attr(data-label);
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: var(--text-muted);
+                font-weight: 600;
+                text-align: left;
+                padding-right: 12px;
+            }
+
+            .lead-actions {
+                justify-content: flex-end;
             }
         }
     </style>
-    <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}">
 </head>
 <body>
 
 <div class="dashboard-container">
-    <h1>SSPW Leads Dashboard</h1>
-    <p>All quote requests submitted through the website are listed below.</p>
+    <!-- HEADER -->
+    <header class="dashboard-header">
+        <div class="brand-title">
+            <h1>SSPW <span>ADMIN</span></h1>
+            <span class="badge-live">● Live Portal</span>
+        </div>
+        <div class="header-actions">
+            <a href="{{ url_for('home') }}" class="btn-action">← Back to Website</a>
+            <a href="javascript:location.reload()" class="btn-action btn-primary">↻ Refresh</a>
+        </div>
+    </header>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Date Submitted</th>
-                <th>Name</th>
-                <th>Phone Number</th>
-                <th>Service</th>
-                <th>Vehicle</th>
-                <th>Message</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in inquiries %}
-            <tr>
-                <td data-label="ID">#{{ loop.index }}</td>
-                <td data-label="Date Submitted">{{ row[6] }}</td>
-                <td data-label="Name"><strong>{{ row[1] }}</strong></td>
-                <td data-label="Phone Number">{{ row[2] }}</td>
-                <td data-label="Service">{{ row[3] }}</td>
-                <td data-label="Vehicle">{{ row[4] }}</td>
-                <td data-label="Message">{{ row[5] }}</td>
-            </tr>
-            {% else %}
-            <tr>
-                <td colspan="7" class="empty-state">No inquiries found in the database.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <!-- ERROR BANNER IF DATABASE NOT CONFIGURED -->
+    {% if error_message %}
+    <div class="alert-box">
+        <div style="font-size: 1.4rem;">⚠️</div>
+        <div>
+            <strong>Database Notice:</strong> {{ error_message }}
+            <p style="margin-top: 6px; font-size: 0.85rem; color: #ffb4b4;">
+                To view saved customer quotes, ensure the <code>DATABASE_URL</code> environment variable is set in your Vercel/Render Project Settings.
+            </p>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- STATS CARDS -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="label">Total Leads Received</div>
+            <div class="number">{{ inquiries|length }}</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">Primary Workshop</div>
+            <div class="number" style="font-size: 1.4rem; padding-top: 6px;">Kothagudem, TS</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">Support Contact</div>
+            <div class="number" style="font-size: 1.4rem; padding-top: 6px;">+91 81797 27255</div>
+        </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls-bar">
+        <input 
+            type="text" 
+            id="searchInput" 
+            class="search-input" 
+            placeholder="🔍 Search leads by name, vehicle, or phone..." 
+            onkeyup="filterLeads()"
+        />
+        <span style="font-size: 0.85rem; color: var(--text-muted);">
+            Showing <strong id="leadCount" style="color: #fff;">{{ inquiries|length }}</strong> customer quote requests
+        </span>
+    </div>
+
+    <!-- INQUIRIES TABLE -->
+    <div class="table-wrapper">
+        <table id="leadsTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Customer</th>
+                    <th>Phone</th>
+                    <th>Vehicle</th>
+                    <th>Requested Service</th>
+                    <th>Notes / Message</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in inquiries %}
+                <tr class="lead-row">
+                    <td data-label="ID" style="color: var(--text-muted); font-size: 0.8rem;">#{{ loop.index }}</td>
+                    <td data-label="Customer">
+                        <div class="customer-name">{{ row[1] }}</div>
+                    </td>
+                    <td data-label="Phone">
+                        <span class="customer-phone">{{ row[2] }}</span>
+                    </td>
+                    <td data-label="Vehicle">
+                        <span class="badge-vehicle">{{ row[4] }}</span>
+                    </td>
+                    <td data-label="Service">
+                        <span class="badge-service">{{ row[3] }}</span>
+                    </td>
+                    <td data-label="Message" style="max-width: 280px; word-break: break-word; color: #ccc;">
+                        {{ row[5] }}
+                    </td>
+                    <td data-label="Date">
+                        <span class="date-text">{{ row[6] }}</span>
+                    </td>
+                    <td data-label="Actions">
+                        <div class="lead-actions">
+                            {% set clean_phone = row[2]|string|replace(' ', '')|replace('-', '')|replace('+', '') %}
+                            <a href="https://wa.me/{{ clean_phone }}" target="_blank" class="btn-wa">💬 WhatsApp</a>
+                            <a href="tel:{{ clean_phone }}" class="btn-call">📞 Call</a>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="8" class="empty-state">
+                        <h3>No Customer Inquiries Yet</h3>
+                        <p>When visitors submit quote forms on the website, they will appear here in real time.</p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
+
+<script>
+function filterLeads() {
+    const filter = document.getElementById('searchInput').value.toLowerCase();
+    const rows = document.querySelectorAll('.lead-row');
+    let visibleCount = 0;
+
+    rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        if (text.includes(filter)) {
+            row.style.display = '';
+            visibleCount++;
+        } else {
+            row.style.display = 'none';
+        }
+    });
+
+    const countElem = document.getElementById('leadCount');
+    if (countElem) {
+        countElem.innerText = visibleCount;
+    }
+}
+</script>
 
 </body>
 </html>
